@@ -6,39 +6,32 @@ import random
 from collections import defaultdict
 from typing import Callable, Dict, Iterable, List, Optional, Tuple, TypeVar
 
-from reporter.constants import CONJUNCTIONS, get_error_message
-from reporter.core.aggregator import Aggregator
-from reporter.core.document_planner import NoInterestingMessagesException
-from reporter.core.models import Template
-from reporter.core.morphological_realizer import MorphologicalRealizer
-from reporter.core.pipeline import NLGPipeline, NLGPipelineComponent
-from reporter.core.realize_slots import SlotRealizer
-from reporter.core.registry import Registry
-from reporter.core.surface_realizer import (
-    BodyHTMLListSurfaceRealizer,
-    BodyHTMLOrderedListSurfaceRealizer,
-    BodyHTMLSurfaceRealizer,
-    HeadlineHTMLSurfaceRealizer,
-)
-from reporter.core.template_reader import read_templates
-from reporter.core.template_selector import TemplateSelector
-from reporter.english_uralicNLP_morphological_realizer import EnglishUralicNLPMorphologicalRealizer
-from reporter.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
-from reporter.newspaper_document_planner import NewspaperBodyDocumentPlanner, NewspaperHeadlineDocumentPlanner
-from reporter.newspaper_importance_allocator import NewspaperImportanceSelector
-from reporter.newspaper_message_generator import NewspaperMessageGenerator, NoMessagesForSelectionException
-from reporter.newspaper_named_entity_resolver import NewspaperEntityNameResolver
-from reporter.resources.extract_bigrams_resource import ExtractBigramsResource
-from reporter.resources.extract_facets_resource import ExtractFacetsResource
-from reporter.resources.extract_words_resource import ExtractWordsResource
-from reporter.resources.generate_time_series_resource import GenerateTimeSeriesResource
-from reporter.resources.newspaper_corpus_resource import NewspaperCorpusResource
-from reporter.resources.processor_resource import ProcessorResource
+from explainer.constants import CONJUNCTIONS, get_error_message
+from explainer.core.document_planner import NoInterestingMessagesException
+from explainer.core.models import Template
+from explainer.core.morphological_realizer import MorphologicalRealizer
+from explainer.core.pipeline import NLGPipeline, NLGPipelineComponent
+from explainer.core.realize_slots import SlotRealizer
+from explainer.core.registry import Registry
+from explainer.core.surface_realizer import BodyHTMLListSurfaceRealizer, BodyHTMLOrderedListSurfaceRealizer
+from explainer.core.template_reader import read_templates
+from explainer.core.template_selector import TemplateSelector
+from explainer.english_uralicNLP_morphological_realizer import EnglishUralicNLPMorphologicalRealizer
+from explainer.explainer_document_planner import ExplainerDocumentPlanner
+from explainer.explainer_message_generator import ExplainerMessageGenerator, NoMessagesForSelectionException
+from explainer.explainer_named_entity_resolver import ExplainerEntityNameResolver
+from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
+from explainer.resources.extract_bigrams_resource import ExtractBigramsResource
+from explainer.resources.extract_facets_resource import ExtractFacetsResource
+from explainer.resources.extract_words_resource import ExtractWordsResource
+from explainer.resources.generate_time_series_resource import GenerateTimeSeriesResource
+from explainer.resources.generic_explainer_resource import GenericExplainerResource
+from explainer.resources.processor_resource import ProcessorResource
 
 log = logging.getLogger("root")
 
 
-class NewspaperNlgService(object):
+class ExplainerNlgService(object):
 
     processor_resources: List[ProcessorResource] = []
 
@@ -56,7 +49,7 @@ class NewspaperNlgService(object):
 
         # Per-processor resources
         self.processor_resources = [
-            NewspaperCorpusResource(),
+            GenericExplainerResource(),
             ExtractWordsResource(),
             ExtractBigramsResource(),
             ExtractFacetsResource(),
@@ -74,11 +67,6 @@ class NewspaperNlgService(object):
 
         # PRNG seed
         self._set_seed(seed_val=random_seed)
-
-        # Message Parsers
-        self.registry.register("message-parsers", [])
-        for processor_resource in self.processor_resources:
-            self.registry.get("message-parsers").append(processor_resource.parse_messages)
 
         # Slot Realizers Components
         self.registry.register("slot-realizers", [])
@@ -119,77 +107,46 @@ class NewspaperNlgService(object):
         return templates
 
     def _get_components(self, realizer: str) -> Iterable[NLGPipelineComponent]:
-        yield NewspaperMessageGenerator()
-        yield NewspaperImportanceSelector()
-
-        if realizer == "headline":
-            yield NewspaperHeadlineDocumentPlanner()
-        else:
-            yield NewspaperBodyDocumentPlanner()
-
+        yield ExplainerMessageGenerator()
+        yield ExplainerDocumentPlanner()
         yield TemplateSelector()
-        yield Aggregator()
         yield SlotRealizer()
-        yield NewspaperEntityNameResolver()
+        yield ExplainerEntityNameResolver()
 
         yield MorphologicalRealizer(
             {"fi": FinnishUralicNLPMorphologicalRealizer(), "en": EnglishUralicNLPMorphologicalRealizer()}
         )
 
-        if realizer == "headline":
-            yield HeadlineHTMLSurfaceRealizer()
-        elif realizer == "ol":
+        if realizer == "ol":
             yield BodyHTMLOrderedListSurfaceRealizer()
-        elif realizer == "ul":
-            yield BodyHTMLListSurfaceRealizer()
         else:
-            yield BodyHTMLSurfaceRealizer()
+            yield BodyHTMLListSurfaceRealizer()
 
-    def run_pipeline(
-        self, language: str, output_format: str, data: str
-    ) -> Tuple[str, str, Optional[str], Optional[str]]:
+    def run_pipeline(self, language: str, output_format: str, data: str) -> Tuple[str, Optional[str]]:
         log.info("Configuring Body NLG Pipeline")
         self.body_pipeline = NLGPipeline(self.registry, *self._get_components(output_format))
         self.headline_pipeline = NLGPipeline(self.registry, *self._get_components("headline"))
 
-        body_error, head_error = None, None
+        err = None
 
-        log.info("Running Body NLG pipeline: language={}".format(language))
+        log.info("Running NLG pipeline: language={}".format(language))
         try:
             body = self.body_pipeline.run((data,), language, prng_seed=self.registry.get("seed"))
             log.info("Body pipeline complete")
         except NoMessagesForSelectionException as ex:
             log.error("%s", ex)
             body = get_error_message(language, "no-messages-for-selection")
-            body_error = "NoMessagesForSelectionException"
+            err = "NoMessagesForSelectionException"
         except NoInterestingMessagesException as ex:
             log.info("%s", ex)
-            body_error = "NoInterestingMessagesException"
+            err = "NoInterestingMessagesException"
             body = get_error_message(language, "no-interesting-messages-for-selection")
         except Exception as ex:
             log.exception("%s", ex)
             body = get_error_message(language, "general-error")
-            body_error = "{}: {}".format(ex.__class__.__name__, str(ex))
+            err = "{}: {}".format(ex.__class__.__name__, str(ex))
 
-        log.info("Running headline NLG pipeline")
-        try:
-            headline_lang = "{}-head".format(language)
-            headline = self.headline_pipeline.run((data,), headline_lang, prng_seed=self.registry.get("seed"))
-            log.info("Headline pipeline complete")
-        except NoMessagesForSelectionException as ex:
-            log.error("%s", ex)
-            headline = get_error_message(language, "no-messages-for-selection")
-            head_error = "NoMessagesForSelectionException"
-        except NoInterestingMessagesException as ex:
-            log.info("%s", ex)
-            headline = get_error_message(language, "no-interesting-messages-for-selection")
-            head_error = "NoInterestingMessagesException"
-        except Exception as ex:
-            log.exception("%s", ex)
-            headline = get_error_message(language, "general-error")
-            head_error = "{}: {}".format(ex.__class__.__name__, str(ex))
-
-        return headline, body, head_error, body_error
+        return body, err
 
     def _set_seed(self, seed_val: Optional[int] = None) -> None:
         log.info("Selecting seed for NLG pipeline")

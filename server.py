@@ -6,7 +6,7 @@ from typing import Callable, Dict, List, Optional, Tuple
 import bottle
 from bottle import TEMPLATE_PATH, Bottle, request, response, run
 
-from reporter.newspaper_nlg_service import NewspaperNlgService
+from explainer.explainer_nlg_service import ExplainerNlgService
 
 #
 # START INIT
@@ -35,7 +35,7 @@ log.addHandler(rotating_file_handler)
 # Bottle
 bottle.BaseRequest.MEMFILE_MAX = 10 * 1024 * 1024  # Allow up to 10MBB requests
 app = Bottle()
-service = NewspaperNlgService(random_seed=4551546)
+service = ExplainerNlgService(random_seed=4551546)
 TEMPLATE_PATH.insert(0, os.path.dirname(os.path.realpath(__file__)) + "/../views/")
 static_root = os.path.dirname(os.path.realpath(__file__)) + "/../static/"
 
@@ -43,9 +43,8 @@ static_root = os.path.dirname(os.path.realpath(__file__)) + "/../static/"
 # END INIT
 #
 
-LANGUAGES = ["en", "fi"]
-
-FORMATS = ["p", "ol", "ul"]
+LANGUAGES = ["en"]
+FORMATS = ["ol", "ul"]
 
 
 def allow_cors(func: Callable) -> Callable:
@@ -58,7 +57,7 @@ def allow_cors(func: Callable) -> Callable:
     return wrapper
 
 
-def generate(language: str, format: str = None, data: str = None) -> Tuple[str, str, Optional[str], Optional[str]]:
+def generate(language: str, format: str = None, data: str = None) -> Tuple[str, Optional[str]]:
     return service.run_pipeline(language, format, data)
 
 
@@ -72,14 +71,12 @@ def api_generate_json() -> Dict[str, str]:
 
     if language not in LANGUAGES or format not in FORMATS:
         response.status = 400
-        return
+        return {"error": "unsupported language or format"}
 
-    header, body, head_error, body_error = generate(language, format, data)
-    output = {"language": language, "header": header, "body": body}
-    if body_error:
-        output["body_generation_error"] = body_error
-    if head_error:
-        output["head_generation_error"] = head_error
+    body, err = generate(language, format, data)
+    output = {"language": language, "body": body}
+    if err:
+        output["error"] = err
     return output
 
 
@@ -92,14 +89,12 @@ def api_generate() -> Dict[str, str]:
 
     if language not in LANGUAGES or format not in FORMATS:
         response.status = 400
-        return
+        return {"error": "unsupported language or format"}
 
-    header, body, head_error, body_error = generate(language, format, data)
-    output = {"language": language, "header": header, "body": body}
-    if body_error:
-        output["body_generation_error"] = body_error
-    if head_error:
-        output["head_generation_error"] = head_error
+    body, err = generate(language, format, data)
+    output = {"language": language, "body": body}
+    if err:
+        output["error"] = err
     return output
 
 

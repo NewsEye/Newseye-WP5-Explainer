@@ -1,6 +1,6 @@
 import logging
 
-from reporter.core.pipeline import NLGPipelineComponent
+from .pipeline import NLGPipelineComponent
 
 log = logging.getLogger("root")
 

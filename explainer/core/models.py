@@ -199,21 +199,8 @@ class Message(DocumentPlanNode):
 
 
 # TODO: This has become project-specific and needs to be defined outside of Core. If it's needed within Core, some type
-# of an injection thingymabob is needed.
-Fact = namedtuple(
-    "fact",
-    [
-        "corpus",  # The test corpus
-        "corpus_type",  # query
-        "timestamp_from",  # None
-        "timestamp_to",  # None
-        "timestamp_type",  # all_time
-        "analysis_type",  # count
-        "result_key",  # language_ssim:english
-        "result_value",  # 13
-        "outlierness",  # 1
-    ],
-)
+#  of an injection thingymabob is needed.
+Fact = namedtuple("fact", ["action", "reason", "id"])
 
 
 class Template(DocumentPlanNode):

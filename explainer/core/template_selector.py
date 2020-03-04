@@ -4,9 +4,9 @@ from typing import Iterator, List, Tuple
 
 from numpy.random import Generator
 
-from reporter.core.models import DefaultTemplate, DocumentPlanNode, Message, Template
-from reporter.core.pipeline import NLGPipelineComponent
-from reporter.core.registry import Registry
+from .models import DefaultTemplate, DocumentPlanNode, Message, Template
+from .pipeline import NLGPipelineComponent
+from .registry import Registry
 
 log = logging.getLogger("root")
 

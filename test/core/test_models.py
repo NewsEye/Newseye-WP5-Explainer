@@ -1,6 +1,6 @@
 from unittest import TestCase, main
 
-from reporter.core.models import (
+from explainer.core.models import (
     Document,
     DocumentPlanNode,
     Fact,
@@ -17,60 +17,23 @@ from reporter.core.models import (
     SlotSource,
     Template,
     TemplateComponent,
-    TimeSource,
 )
 
 
 class TestFact(TestCase):
     def setUp(self):
-        self.fact = Fact(
-            "corpus",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact = Fact("action", "reason", "id",)
 
     def test_fact_fields(self):
-        self.assertEqual(self.fact.corpus, "corpus")
-        self.assertEqual(self.fact.corpus_type, "corpus_type")
-        self.assertEqual(self.fact.timestamp_from, "timestamp_from")
-        self.assertEqual(self.fact.timestamp_to, "timestamp_to")
-        self.assertEqual(self.fact.timestamp_type, "timestamp_type")
-        self.assertEqual(self.fact.analysis_type, "analysis_type")
-        self.assertEqual(self.fact.result_key, "result_key")
-        self.assertEqual(self.fact.result_value, "result_value")
-        self.assertEqual(self.fact.outlierness, "outlierness")
+        self.assertEqual(self.fact.action, "action")
+        self.assertEqual(self.fact.reason, "reason")
+        self.assertEqual(self.fact.id, "id")
 
 
 class TestMessage(TestCase):
     def setUp(self):
-        self.fact1 = Fact(
-            "corpus1",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
-        self.fact2 = Fact(
-            "corpus2",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact1 = Fact("action1", "reason", "id",)
+        self.fact2 = Fact("action2", "reason", "id",)
 
     def test_message_creation_single_fact(self):
         message = Message(self.fact1, 0.1, 0.2, 0.3)
@@ -85,10 +48,7 @@ class TestMessage(TestCase):
         self.assertEqual(message.polarity, 0.3)
         self.assertIsNone(message.template)
         self.assertEqual(
-            str(message),
-            "<Message: fact(corpus='corpus1', corpus_type='corpus_type', timestamp_from='timestamp_from', "
-            "timestamp_to='timestamp_to', timestamp_type='timestamp_type', analysis_type='analysis_type', "
-            "result_key='result_key', result_value='result_value', outlierness='outlierness')>",
+            str(message), "<Message: fact(action='action1', reason='reason', id='id')>",
         )
 
     def test_message_creation_list_of_facts(self):
@@ -118,30 +78,11 @@ class TestMessage(TestCase):
 
 class TestDocument(TestCase):
     def setUp(self):
-        self.fact1 = Fact(
-            "corpus1",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact1 = Fact("action1", "reason", "id",)
+
         self.message1 = Message(self.fact1, 0.1, 0.2, 0.3)
 
-        self.fact2 = Fact(
-            "corpus2",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact2 = Fact("action2", "reason", "id",)
         self.message2 = Message(self.fact2, 0.1, 0.2, 0.3)
         self.document_plan_node = DocumentPlanNode([self.message1, self.message2], Relation.ELABORATION)
         self.document = Document("en", self.document_plan_node)
@@ -157,30 +98,11 @@ class TestDocument(TestCase):
 
 class TestDocumentPlanNode(TestCase):
     def setUp(self):
-        self.fact1 = Fact(
-            "corpus1",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact1 = Fact("action1", "reason", "id",)
+
         self.message1 = Message(self.fact1, 0.1, 0.2, 0.3)
 
-        self.fact2 = Fact(
-            "corpus2",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact2 = Fact("action2", "reason", "id",)
         self.message2 = Message(self.fact2, 0.1, 0.2, 0.3)
 
         self.document_plan_node = DocumentPlanNode([self.message1, self.message2], Relation.ELABORATION)
@@ -224,17 +146,7 @@ class TestSlot(TestCase):
     def setUp(self):
         self.to_value = LiteralSource("some literal")
         self.attributes = dict()
-        self.fact = Fact(
-            "corpus",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact = Fact("action1", "reason", "id",)
 
     def test_slot_creation_with_default_values(self):
         slot = Slot(self.to_value)
@@ -320,40 +232,20 @@ class TestSlotSource(TestCase):
 
 class TestFactFieldSource(TestCase):
     def setUp(self):
-        self.fact = Fact(
-            "corpus name",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact = Fact("action name", "reason", "id",)
         self.message = Message(self.fact, 0.1, 0.2, 0.3)
-        self.source = FactFieldSource("corpus")
+        self.source = FactFieldSource("action")
 
     def test_fact_field_source_creation(self):
-        self.assertEqual(self.source.field_name, "corpus")
+        self.assertEqual(self.source.field_name, "action")
 
     def test_fact_field_source_retrieves_from_fact_on_call(self):
-        self.assertEqual(self.source(self.fact), "corpus name")
+        self.assertEqual(self.source(self.fact), "action name")
 
 
 class TestLiteralSource(TestCase):
     def setUp(self):
-        self.fact = Fact(
-            "corpus name",
-            "corpus_type",
-            "timestamp_from",
-            "timestamp_to",
-            "timestamp_type",
-            "analysis_type",
-            "result_key",
-            "result_value",
-            "outlierness",
-        )
+        self.fact = Fact("action1", "reason", "id",)
         self.source = LiteralSource("Some literal")
 
     def test_literal_source_creation(self):
@@ -364,21 +256,9 @@ class TestLiteralSource(TestCase):
         self.assertEqual(self.source(self.fact), "Some literal")
 
 
-class TestTimeSource(TestCase):
-    def setUp(self):
-        self.fact = Fact("_", "_", "t1", "t2", "tt", "_", "_", "_", "_")
-        self.source = TimeSource()
-
-    def test_time_source_creation(self):
-        self.assertEqual(self.source.field_name, "time")
-
-    def test_time_source_retrieves_from_fact(self):
-        self.assertEqual(self.source(self.fact), "[TIME:tt:t1:t2]")
-
-
 class TestLhsExpr(TestCase):
     def setUp(self):
-        self.fact = self.fact = Fact("_", "_", "_", "_", "_", "_", "_", "_", "_")
+        self.fact = Fact("action1", "reason", "id",)
         self.expr = LhsExpr()
 
     def test_lhs_expr_is_abstract(self):
@@ -391,39 +271,39 @@ class TestLhsExpr(TestCase):
 
 class TestFactField(TestCase):
     def setUp(self):
-        self.fact1 = Fact("1", "_", "_", "_", "_", "_", "_", "_", "_")
-        self.fact2 = Fact("2", "_", "_", "_", "_", "_", "_", "_", "_")
+        self.fact1 = Fact("action1", "reason", "id",)
+        self.fact2 = Fact("action2", "reason", "id",)
         self.all_facts = [self.fact1, self.fact2]
-        self.field = FactField("corpus")
+        self.field = FactField("action")
 
     def test_fact_field_creation(self):
-        self.assertEqual(self.field.field_name, "corpus")
+        self.assertEqual(self.field.field_name, "action")
 
     def test_fact_field_fetches_from_fact(self):
-        self.assertEqual(self.field(self.fact1, self.all_facts), "1")
+        self.assertEqual(self.field(self.fact1, self.all_facts), "action1")
 
 
 class TestReferentialExpr(TestCase):
     def setUp(self):
-        self.fact1 = Fact("1", "_", "_", "_", "_", "_", "_", "_", "_")
-        self.fact2 = Fact("2", "_", "_", "_", "_", "_", "_", "_", "_")
+        self.fact1 = Fact("action1", "reason", "id",)
+        self.fact2 = Fact("action2", "reason", "id",)
         self.all_facts = [self.fact1, self.fact2]
-        self.expr = ReferentialExpr(1, "corpus")
+        self.expr = ReferentialExpr(1, "action")
 
     def test_referential_expr_creation(self):
-        self.assertEqual(self.expr.field_name, "corpus")
+        self.assertEqual(self.expr.field_name, "action")
         self.assertEqual(self.expr.reference_idx, 1)
 
     def test_referential_expr_fetches_from_correct_fact(self):
-        self.assertEqual(self.expr(self.fact1, self.all_facts), "2")
+        self.assertEqual(self.expr(self.fact1, self.all_facts), "action2")
 
 
 class TestMatcher(TestCase):
     def setUp(self):
-        self.fact1 = Fact("1", "_", "_", "_", "_", "_", "_", "_", "_")
-        self.fact2 = Fact("2", "_", "_", "_", "_", "_", "_", "_", "_")
+        self.fact1 = Fact("1", "reason", "id",)
+        self.fact2 = Fact("2", "reason", "id",)
         self.all_facts = [self.fact1, self.fact2]
-        self.expr = FactField("corpus")
+        self.expr = FactField("action")
 
     def test_matcher_standard_ops_map_correctly(self):
         import operator
@@ -459,17 +339,17 @@ class TestMatcher(TestCase):
 
 class TestTemplate(TestCase):
     def setUp(self):
-        self.fact1 = Fact("1", "_", "_", "_", "_", "_", "_", "_", "_")
-        self.fact2 = Fact("2", "_", "_", "_", "_", "_", "_", "_", "_")
+        self.fact1 = Fact("1", "reason", "id",)
+        self.fact2 = Fact("2", "reason", "id",)
 
         self.message1 = Message(self.fact1)
         self.message2 = Message(self.fact2)
 
-        self.expr = FactField("corpus")
+        self.expr = FactField("action")
         self.matcher = Matcher(self.expr, "=", "1")
         self.rules = [([self.matcher], [0])]
 
-        self.slot = Slot(FactFieldSource("corpus"))
+        self.slot = Slot(FactFieldSource("action"))
         self.literal = LiteralSlot("literal")
         self.components = [self.slot, self.literal]
 
@@ -485,38 +365,38 @@ class TestTemplate(TestCase):
         self.assertEqual(self.literal.parent, self.template)
 
     def test_template_get_slot(self):
-        self.assertEqual(self.template.get_slot("corpus"), self.slot)
+        self.assertEqual(self.template.get_slot("action"), self.slot)
         self.assertEqual(self.template.get_slot("literal"), self.literal)
 
         with self.assertRaises(KeyError):
             self.template.get_slot("no such")
 
     def test_template_add_slot(self):
-        new_slot = Slot(FactFieldSource("timestamp_from"))
+        new_slot = Slot(FactFieldSource("reason"))
         self.template.add_slot(2, new_slot)
         self.assertIn(new_slot, self.template.components)
-        self.assertEqual(self.template.get_slot("timestamp_from"), new_slot)
+        self.assertEqual(self.template.get_slot("reason"), new_slot)
 
     def test_template_added_slot(self):
-        new_slot = Slot(FactFieldSource("timestamp_from"))
+        new_slot = Slot(FactFieldSource("reason"))
         self.template.add_slot(1, new_slot)
         self.assertListEqual(self.template.components, [self.slot, new_slot, self.literal])
 
     def test_template_added_slot_is_last_component(self):
-        new_slot = Slot(FactFieldSource("timestamp_from"))
+        new_slot = Slot(FactFieldSource("reason"))
         self.template.add_slot(2, new_slot)
         self.assertListEqual(self.template.components, [self.slot, self.literal, new_slot])
 
     def test_template_move_slot_forwards(self):
         # TODO: This fails, when it shouldn't
-        new_slot = Slot(FactFieldSource("timestamp_from"))
+        new_slot = Slot(FactFieldSource("reason"))
         self.template.add_slot(2, new_slot)
 
         self.template.move_slot(0, 1)
         self.assertListEqual(self.template.components, [self.literal, self.slot, new_slot])
 
     def test_template_move_slot_backwards(self):
-        new_slot = Slot(FactFieldSource("timestamp_from"))
+        new_slot = Slot(FactFieldSource("reason"))
         self.template.add_slot(2, new_slot)
 
         self.template.move_slot(2, 1)

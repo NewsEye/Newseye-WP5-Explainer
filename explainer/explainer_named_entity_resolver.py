@@ -4,15 +4,15 @@ from typing import Tuple
 
 from numpy.random import Generator
 
-from reporter.constants import LANGUAGES
-from reporter.core.entity_name_resolver import EntityNameResolver
-from reporter.core.models import Slot
-from reporter.core.registry import Registry
+from explainer.constants import LANGUAGES
+from explainer.core.entity_name_resolver import EntityNameResolver
+from explainer.core.models import Slot
+from explainer.core.registry import Registry
 
 log = logging.getLogger("root")
 
 
-class NewspaperEntityNameResolver(EntityNameResolver):
+class ExplainerEntityNameResolver(EntityNameResolver):
     def __init__(self) -> None:
         # [ENTITY:<group1>:<group2>] where group1 and group2 can contain anything but square brackets or double colon
         self._matcher = re.compile(r"\[ENTITY:([^\]:]*):([^\]]*)\]")

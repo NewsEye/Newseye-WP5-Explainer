@@ -1,19 +1,19 @@
 from unittest import TestCase, main
 
-from reporter.core.models import Fact, FactField, FactFieldSource, LiteralSlot, Matcher, Message, Slot, Template
-from reporter.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
+from explainer.core.models import Fact, FactField, FactFieldSource, LiteralSlot, Matcher, Message, Slot, Template
+from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
 
 
 class TestRealization(TestCase):
     def setUp(self):
-        self.fact = Fact("1", "_", "_", "_", "_", "_", "_", "kissa", "_")
+        self.fact = Fact("1", "kissa", "id",)
         self.message = Message(self.fact)
 
-        self.expr = FactField("corpus")
+        self.expr = FactField("action")
         self.matcher = Matcher(self.expr, "=", "1")
         self.rules = [([self.matcher], [0])]
 
-        self.slot = Slot(FactFieldSource("result_value"))
+        self.slot = Slot(FactFieldSource("reason"))
         self.literal = LiteralSlot("sana")
         self.components = [self.slot, self.literal]
 

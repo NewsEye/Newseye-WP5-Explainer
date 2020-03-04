@@ -4,9 +4,9 @@ from typing import List, Tuple
 
 from numpy.random import Generator
 
-from reporter.core.models import DocumentPlanNode, Message, Relation
-from reporter.core.pipeline import NLGPipelineComponent
-from reporter.core.registry import Registry
+from .models import DocumentPlanNode, Message, Relation
+from .pipeline import NLGPipelineComponent
+from .registry import Registry
 
 log = logging.getLogger("root")
 
@@ -18,14 +18,14 @@ class NoInterestingMessagesException(Exception):
 class DocumentPlanner(NLGPipelineComponent):
     @abstractmethod
     def run(
-        self, registry: Registry, random: Generator, language: str, scored_messages
+        self, registry: Registry, random: Generator, language: str, scored_messages: List[Message]
     ) -> Tuple[DocumentPlanNode, List[Message]]:
         pass
 
 
 class HeadlineDocumentPlanner(DocumentPlanner):
     def run(
-        self, registry: Registry, random: Generator, language: str, scored_messages
+        self, registry: Registry, random: Generator, language: str, scored_messages: List[Message]
     ) -> Tuple[DocumentPlanNode, List[Message]]:
         """
         Run this pipeline component.

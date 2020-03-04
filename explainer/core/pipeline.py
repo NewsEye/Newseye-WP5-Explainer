@@ -4,7 +4,7 @@ from typing import Any, List, Optional, Tuple, Union
 
 from numpy import random
 
-from reporter.core.registry import Registry
+from .registry import Registry
 
 log = logging.getLogger("root")
 

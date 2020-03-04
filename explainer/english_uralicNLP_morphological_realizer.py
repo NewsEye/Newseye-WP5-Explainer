@@ -3,8 +3,8 @@ from typing import Dict, Optional
 
 from uralicNLP import uralicApi
 
-from reporter.core.models import Slot
-from reporter.core.morphological_realizer import LanguageSpecificMorphologicalRealizer
+from explainer.core.models import Slot
+from explainer.core.morphological_realizer import LanguageSpecificMorphologicalRealizer
 
 log = logging.getLogger("root")
 

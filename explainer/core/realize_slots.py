@@ -6,9 +6,9 @@ from typing import Callable, Iterable, List, Optional, Tuple, Union
 
 from numpy.random import Generator
 
-from reporter.core.models import DocumentPlanNode, Message, Slot, TemplateComponent
-from reporter.core.pipeline import NLGPipelineComponent
-from reporter.core.registry import Registry
+from .models import DocumentPlanNode, Message, Slot, TemplateComponent
+from .pipeline import NLGPipelineComponent
+from .registry import Registry
 
 log = logging.getLogger("root")
 

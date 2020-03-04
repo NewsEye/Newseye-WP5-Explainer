@@ -1,4 +1,4 @@
-# NewsEye WP5  - Reporter
+# NewsEye WP5  - Explainer
 
 This is a development repo, you are probably in the wrong place
 
@@ -48,15 +48,3 @@ You can run
 ```
 to force git to run both `black` and `flake8` for you before it allows you to commit.
 
-
-## Deployment to production
-
-To update the code on the server, run the below commands:
-````sh
-ssh melkki.cs.helsinki.fi
-ssh newseye-wp5.cs.helsinki.fi
-sudo su - newseye
-cd reporter
-git pull origin master
-sudo systemctl restart reporter.service
-````

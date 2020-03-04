@@ -3,9 +3,9 @@ import re
 
 from numpy import random
 
-from reporter.core.models import DocumentPlanNode
-from reporter.core.pipeline import NLGPipelineComponent
-from reporter.core.registry import Registry
+from .models import DocumentPlanNode
+from .pipeline import NLGPipelineComponent
+from .registry import Registry
 
 log = logging.getLogger("root")
 
@@ -18,6 +18,14 @@ class SurfaceRealizer(NLGPipelineComponent):
     some number of paragraphs as children and each paragraph in turn has some number
     of sentences as children.
     """
+
+    @property
+    def doc_start(self):
+        raise NotImplementedError
+
+    @property
+    def doc_end(self):
+        raise NotImplementedError
 
     @property
     def paragraph_start(self):
@@ -71,10 +79,12 @@ class SurfaceRealizer(NLGPipelineComponent):
                     continue
             sent = sent[0].upper() + sent[1:]
             output += self.sentence_start + sent + self.sentence_end
-        return output
+        return self.doc_start + output + self.doc_end
 
 
 class HeadlineHTMLSurfaceRealizer(SurfaceRealizer):
+    doc_start = ""
+    doc_end = ""
     paragraph_start = ""
     paragraph_end = ""
     sentence_end = ""
@@ -83,6 +93,8 @@ class HeadlineHTMLSurfaceRealizer(SurfaceRealizer):
 
 
 class BodyHTMLSurfaceRealizer(SurfaceRealizer):
+    doc_start = ""
+    doc_end = ""
     paragraph_start = "<p>"
     paragraph_end = "</p>"
     sentence_end = ". "
@@ -91,6 +103,8 @@ class BodyHTMLSurfaceRealizer(SurfaceRealizer):
 
 
 class BodyHTMLListSurfaceRealizer(SurfaceRealizer):
+    doc_start = ""
+    doc_end = ""
     paragraph_start = "<ul>"
     paragraph_end = "</ul>"
     sentence_end = ".</li>"
@@ -99,6 +113,8 @@ class BodyHTMLListSurfaceRealizer(SurfaceRealizer):
 
 
 class BodyHTMLOrderedListSurfaceRealizer(SurfaceRealizer):
+    doc_start = ""
+    doc_end = ""
     paragraph_start = "<ol>"
     paragraph_end = "</ol>"
     sentence_end = ".</li>"

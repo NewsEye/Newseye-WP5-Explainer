@@ -40,7 +40,7 @@ import re
 import warnings
 from typing import Dict, List, Optional, Tuple
 
-from reporter.core.models import (
+from .models import (
     FactField,
     FactFieldSource,
     Literal,
@@ -61,16 +61,7 @@ def canonical_map(map_dict):
     )
 
 
-FACT_FIELD_ALIASES = {
-    "corpus": [],
-    "corpus_type": [],
-    "timestamp_from": ["timestamp", "time"],
-    "timestamp_to": [],
-    "timestamp_type": [],
-    "analysis_type": [],
-    "result_key": [],
-    "result_value": [],
-}
+FACT_FIELD_ALIASES = {"action": ["what"], "reason": ["why"], "id": []}
 FACT_FIELD_MAP = canonical_map(FACT_FIELD_ALIASES)
 LOCATION_TYPES = {"C": ["country"], "D": ["district"], "M": ["municipality", "mun"]}
 LOCATION_TYPE_MAP = canonical_map(LOCATION_TYPES)
@@ -315,16 +306,7 @@ def read_template_group(
 
                         # Only some of the field names are allowed to be used in templates
                         # TODO: Remove or reinstate with allowed things received as params from "somewhere"
-                        if field_name not in [
-                            "corpus",
-                            "corpus_type",
-                            "timestamp_from",
-                            "timestamp_to",
-                            "timestamp_type",
-                            "analysis_type",
-                            "result_key",
-                            "result_value",
-                        ]:
+                        if field_name not in FACT_FIELD_MAP:
                             raise TemplateReadingError(
                                 "invalid field name '{}' for use in a template: {}".format(
                                     field_name, expanded_template_line

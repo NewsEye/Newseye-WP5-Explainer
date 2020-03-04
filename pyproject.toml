@@ -17,7 +17,7 @@ exclude = '''
     | build
     | dist
   )/
-  | reporter/constants.py
+  | explainer/constants.py
 )
 '''
 
