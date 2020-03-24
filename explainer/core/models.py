@@ -200,7 +200,7 @@ class Message(DocumentPlanNode):
 
 # TODO: This has become project-specific and needs to be defined outside of Core. If it's needed within Core, some type
 #  of an injection thingymabob is needed.
-Fact = namedtuple("fact", ["action", "reason", "id"])
+Fact = namedtuple("fact", ["type", "name", "parameters", "id"])
 
 
 class Template(DocumentPlanNode):

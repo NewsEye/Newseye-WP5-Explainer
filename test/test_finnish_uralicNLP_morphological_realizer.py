@@ -6,14 +6,14 @@ from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPM
 
 class TestRealization(TestCase):
     def setUp(self):
-        self.fact = Fact("1", "kissa", "id",)
+        self.fact = Fact("1", "kissa", "params", "id",)
         self.message = Message(self.fact)
 
-        self.expr = FactField("action")
+        self.expr = FactField("type")
         self.matcher = Matcher(self.expr, "=", "1")
         self.rules = [([self.matcher], [0])]
 
-        self.slot = Slot(FactFieldSource("reason"))
+        self.slot = Slot(FactFieldSource("name"))
         self.literal = LiteralSlot("sana")
         self.components = [self.slot, self.literal]
 

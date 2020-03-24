@@ -21,12 +21,12 @@ from explainer.explainer_document_planner import ExplainerDocumentPlanner
 from explainer.explainer_message_generator import ExplainerMessageGenerator, NoMessagesForSelectionException
 from explainer.explainer_named_entity_resolver import ExplainerEntityNameResolver
 from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
+from explainer.resources.brute_force_resource import BruteForceResource
 from explainer.resources.extract_bigrams_resource import ExtractBigramsResource
 from explainer.resources.extract_facets_resource import ExtractFacetsResource
 from explainer.resources.extract_words_resource import ExtractWordsResource
 from explainer.resources.generate_time_series_resource import GenerateTimeSeriesResource
-from explainer.resources.generic_explainer_resource import GenericExplainerResource
-from explainer.resources.processor_resource import ProcessorResource
+from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
 
 log = logging.getLogger("root")
 
@@ -49,7 +49,7 @@ class ExplainerNlgService(object):
 
         # Per-processor resources
         self.processor_resources = [
-            GenericExplainerResource(),
+            BruteForceResource(),
             ExtractWordsResource(),
             ExtractBigramsResource(),
             ExtractFacetsResource(),
@@ -64,6 +64,15 @@ class ExplainerNlgService(object):
 
         # Misc language data
         self.registry.register("CONJUNCTIONS", CONJUNCTIONS)
+
+        # Task and Reason parsers
+        self.registry.register("task-parsers", [])
+        self.registry.register("reason-parsers", [])
+        for resource in self.processor_resources:
+            if isinstance(resource, TaskResource):
+                self.registry.get("task-parsers").append(resource.parse_task)
+            if isinstance(resource, ReasonResource):
+                self.registry.get("reason-parsers").append(resource.parse_reason)
 
         # PRNG seed
         self._set_seed(seed_val=random_seed)

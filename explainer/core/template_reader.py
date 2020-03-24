@@ -61,7 +61,7 @@ def canonical_map(map_dict):
     )
 
 
-FACT_FIELD_ALIASES = {"action": ["what"], "reason": ["why"], "id": []}
+FACT_FIELD_ALIASES = {"type": [], "name": [], "parameters": [], "id": []}
 FACT_FIELD_MAP = canonical_map(FACT_FIELD_ALIASES)
 LOCATION_TYPES = {"C": ["country"], "D": ["district"], "M": ["municipality", "mun"]}
 LOCATION_TYPE_MAP = canonical_map(LOCATION_TYPES)

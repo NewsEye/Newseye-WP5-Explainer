@@ -6,14 +6,14 @@ from explainer.english_uralicNLP_morphological_realizer import EnglishUralicNLPM
 
 class TestRealization(TestCase):
     def setUp(self):
-        self.fact = Fact("1", "cat", "id",)
+        self.fact = Fact("1", "cat", "params", "id",)
         self.message = Message(self.fact)
 
-        self.expr = FactField("action")
+        self.expr = FactField("type")
         self.matcher = Matcher(self.expr, "=", "1")
         self.rules = [([self.matcher], [0])]
 
-        self.slot = Slot(FactFieldSource("reason"))
+        self.slot = Slot(FactFieldSource("name"))
         self.literal = LiteralSlot("literal")
         self.components = [self.slot, self.literal]
 

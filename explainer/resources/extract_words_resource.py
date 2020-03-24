@@ -1,13 +1,39 @@
 import logging
 from typing import List, Type
 
+from explainer.core.models import Fact, Message
 from explainer.core.realize_slots import RegexRealizer, SlotRealizerComponent
-from explainer.resources.generic_explainer_resource import GenericExplainerResource
+from explainer.explainer_message_generator import Event
+from explainer.resources.processor_resource import TaskResource
 
 log = logging.getLogger("root")
 
+TEMPLATE = """
+en: All {parameters} were extracted and counted.
+| name = ExtractWords
+"""
 
-class ExtractWordsResource(GenericExplainerResource):
+
+class ExtractWordsResource(TaskResource):
+    def templates_string(self) -> str:
+        return TEMPLATE
+
+    def parse_task(self, event: Event) -> List[Message]:
+        task = event.task
+        if not task or task.name != "ExtractWords":
+            return []
+
+        return [
+            Message(
+                Fact(
+                    "task",
+                    "ExtractWords",
+                    "[ExtractWords:UNIT:{}]".format(task.parameters.get("units", "stems")),
+                    event.id,
+                )
+            )
+        ]
+
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
         return [EnglishExtractWordStemsRealizer, EnglishExtractWordTokenRealizer]
 
@@ -15,14 +41,10 @@ class ExtractWordsResource(GenericExplainerResource):
 class EnglishExtractWordStemsRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry,
-            "en",
-            r"\[ACTION:ExtractWords:stems\]",
-            [],
-            "The stems of all the words were extracted and counted",
+            registry, "en", r"\[ExtractWords:UNIT:stems\]", [], "stems",
         )
 
 
 class EnglishExtractWordTokenRealizer(RegexRealizer):
     def __init__(self, registry):
-        super().__init__(registry, "en", r"\[ACTION:ExtractWords:tokens\]", [], "All tokens were extracted and counted")
+        super().__init__(registry, "en", r"\[ExtractWords:UNIT:tokens\]", [], "tokens")
