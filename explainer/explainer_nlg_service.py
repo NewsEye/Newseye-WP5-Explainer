@@ -1,3 +1,4 @@
+import datetime
 import gzip
 import logging
 import os
@@ -132,6 +133,8 @@ class ExplainerNlgService(object):
             yield BodyHTMLListSurfaceRealizer()
 
     def run_pipeline(self, language: str, output_format: str, data: str) -> Tuple[str, Optional[str]]:
+        log.info("Starting generation")
+        start_time = datetime.datetime.now().timestamp()
         log.info("Configuring Body NLG Pipeline")
         self.body_pipeline = NLGPipeline(self.registry, *self._get_components(output_format))
         self.headline_pipeline = NLGPipeline(self.registry, *self._get_components("headline"))
@@ -154,6 +157,9 @@ class ExplainerNlgService(object):
             log.exception("%s", ex)
             body = get_error_message(language, "general-error")
             err = "{}: {}".format(ex.__class__.__name__, str(ex))
+
+        end_time = datetime.datetime.now().timestamp()
+        log.info("Generation complete. Time taken in seconds: {}".format(end_time - start_time))
 
         return body, err
 
