@@ -75,7 +75,9 @@ class ExplainerMessageGenerator(NLGPipelineComponent):
                     log.error("Task parser crashed: {}".format(ex), exc_info=True)
 
             if not task_generation_succeeded:
-                messages.append(Message(Fact("task", "UNKNOWN_TASK", "")))
+                messages.append(
+                    Message(Fact("task", "UNKNOWN_TASK:{}".format(event.task.name), event.task.parameters, event.id))
+                )
                 log.error("Failed to parse a Message from {}".format(event.task))
 
             reason_generation_succeeded = False
@@ -91,7 +93,11 @@ class ExplainerMessageGenerator(NLGPipelineComponent):
                     log.error("Reason parser crashed: {}".format(ex), exc_info=True)
 
             if not reason_generation_succeeded:
-                messages.append(Message(Fact("reason", "UNKNOWN_REASON", "")))
+                messages.append(
+                    Message(
+                        Fact("reason", "UNKNOWN_REASON:{}".format(event.task.name), event.reason.parameters, event.id)
+                    )
+                )
                 log.error("Failed to parse a Message from {}".format(event.reason))
 
         log.debug("Generated {} messages".format(len(messages)))

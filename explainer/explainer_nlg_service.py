@@ -28,6 +28,8 @@ from explainer.resources.extract_facets_resource import ExtractFacetsResource
 from explainer.resources.extract_words_resource import ExtractWordsResource
 from explainer.resources.generate_time_series_resource import GenerateTimeSeriesResource
 from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
+from explainer.resources.unknown_reason_resource import UnknownReasonResource
+from explainer.resources.unknown_task_resource import UnknownTaskResource
 
 log = logging.getLogger("root")
 
@@ -50,6 +52,8 @@ class ExplainerNlgService(object):
 
         # Per-processor resources
         self.processor_resources = [
+            UnknownTaskResource(),
+            UnknownReasonResource(),
             BruteForceResource(),
             ExtractWordsResource(),
             ExtractBigramsResource(),
