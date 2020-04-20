@@ -10,7 +10,7 @@ log = logging.getLogger("root")
 
 
 TEMPLATE = """
-en: A time series was created from {parameters}.
+en: A time series of the {parameters} values was created.
 | name = GenerateTimeSeries
 """
 
@@ -33,15 +33,11 @@ class GenerateTimeSeriesResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishTimeSeriesRealizer]
+        return [EnglishTimeSeriesFacetRealizer]
 
 
-class EnglishTimeSeriesRealizer(RegexRealizer):
+class EnglishTimeSeriesFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry,
-            "en",
-            r"\[ACTION:GenerateTimeSeries\]",
-            [],
-            "a time series was generated from the output of the previous step",
+            registry, "en", r"TimeSeries:FACET:(.*)\]", (1), "'{}' facet",
         )
