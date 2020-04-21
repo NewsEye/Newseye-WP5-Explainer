@@ -30,6 +30,7 @@ from explainer.resources.generate_time_series_resource import GenerateTimeSeries
 from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
 from explainer.resources.query_topic_model_resource import QueryTopicModelResource
 from explainer.resources.split_by_facet_resource import SplitByFacetResource
+from explainer.resources.summarization_resource import SummarizationResource
 from explainer.resources.topic_model_document_linking_resource import TopicModelDocumentLinkingResource
 from explainer.resources.unknown_reason_resource import UnknownReasonResource
 from explainer.resources.unknown_task_resource import UnknownTaskResource
@@ -65,6 +66,7 @@ class ExplainerNlgService(object):
             QueryTopicModelResource(),
             TopicModelDocumentLinkingResource(),
             SplitByFacetResource(),
+            SummarizationResource(),
         ]
 
         # Templates
