@@ -17,7 +17,7 @@ class BruteForceResource(ReasonResource):
 
     def parse_reason(self, event: Event) -> List[Message]:
         task = event.reason
-        if not task or task.name != "BruteForce":
+        if not task or task.name != "brute_force":
             return []
 
         return [Message(Fact("reason", "BruteForce", None, event.id))]
