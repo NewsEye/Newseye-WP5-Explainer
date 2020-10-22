@@ -18,7 +18,7 @@ class Task:
 
     @staticmethod
     def from_dict(dict: Dict[str, Any]) -> "Task":
-        return Task(dict.get("name", "UNNAMED_TASK"), dict.get("parameters"))
+        return Task(dict.get("name", "UNNAMED_TASK"), dict.get("parameters", {}))
 
 
 class Reason:
@@ -28,7 +28,7 @@ class Reason:
 
     @staticmethod
     def from_dict(dict: Dict[str, Any]) -> "Reason":
-        return Reason(dict.get("name", "UNNAMED_REASON"), dict.get("parameters"))
+        return Reason(dict.get("name", "UNNAMED_REASON"), dict.get("parameters", {}))
 
 
 class Event:
