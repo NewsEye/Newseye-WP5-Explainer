@@ -95,7 +95,7 @@ class ExplainerMessageGenerator(NLGPipelineComponent):
             if not reason_generation_succeeded:
                 messages.append(
                     Message(
-                        Fact("reason", "UNKNOWN_REASON:{}".format(event.task.name), event.reason.parameters, event.id)
+                        Fact("reason", "UNKNOWN_REASON:{}".format(event.reason.name), event.reason.parameters, event.id)
                     )
                 )
                 log.error("Failed to parse a Message from {}".format(event.reason))
