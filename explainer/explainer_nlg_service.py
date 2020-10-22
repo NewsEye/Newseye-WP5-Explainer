@@ -59,8 +59,12 @@ class ExplainerNlgService(object):
         self.processor_resources = [
             UnknownTaskResource(),
             UnknownReasonResource(),
+            #
+            # Reasons
             BruteForceResource(),
             InitializationResource(),
+            #
+            # Tasks
             ExtractWordsResource(),
             ExtractBigramsResource(),
             ExtractFacetsResource(),
