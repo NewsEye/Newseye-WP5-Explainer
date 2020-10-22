@@ -27,6 +27,7 @@ from explainer.resources.extract_bigrams_resource import ExtractBigramsResource
 from explainer.resources.extract_facets_resource import ExtractFacetsResource
 from explainer.resources.extract_words_resource import ExtractWordsResource
 from explainer.resources.generate_time_series_resource import GenerateTimeSeriesResource
+from explainer.resources.initialization_resource import InitializationResource
 from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
 from explainer.resources.query_topic_model_resource import QueryTopicModelResource
 from explainer.resources.split_by_facet_resource import SplitByFacetResource
@@ -59,6 +60,7 @@ class ExplainerNlgService(object):
             UnknownTaskResource(),
             UnknownReasonResource(),
             BruteForceResource(),
+            InitializationResource(),
             ExtractWordsResource(),
             ExtractBigramsResource(),
             ExtractFacetsResource(),
