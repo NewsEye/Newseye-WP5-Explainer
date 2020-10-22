@@ -6,7 +6,7 @@ from explainer.explainer_message_generator import Event
 from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
-en: This was completed for a reason called {name} with the paramaters {parameters}. This reason is not familiar to the Explainer and should be reporter.
+en: This was completed for a reason called {name} with the paramaters {parameters}. This reason is not familiar to the Explainer and should be reported.
 | name = UNKNOWN_REASON:.*
 """  # noqa: E501
 
