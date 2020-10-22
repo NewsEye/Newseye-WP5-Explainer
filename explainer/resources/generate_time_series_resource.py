@@ -10,7 +10,7 @@ log = logging.getLogger("root")
 
 
 TEMPLATE = """
-en: A time series of the {parameters} values was created.
+en: A time series of the {parameters} was created.
 | name = GenerateTimeSeries
 """
 
@@ -24,20 +24,26 @@ class GenerateTimeSeriesResource(TaskResource):
         if not task or task.name != "GenerateTimeSeries":
             return []
 
-        return [
-            Message(
-                Fact(
-                    "task", "GenerateTimeSeries", "[TimeSeries:FACET:{}]".format(task.parameters.get("facet")), event.id
-                )
-            )
-        ]
+        if "facet_name" in task.parameters:
+            split_by = "[TimeSeries:FACET:{}]".format(task.parameters.get("facet_name"))
+        else:
+            split_by = "[TimeSeries:NO_FACET]"
+
+        return [Message(Fact("task", "GenerateTimeSeries", split_by, event.id))]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishTimeSeriesFacetRealizer]
+        return [EnglishTimeSeriesFacetRealizer, EnglishTimeSeriesNoFacetRealizer]
 
 
 class EnglishTimeSeriesFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"TimeSeries:FACET:(.*)\]", (1), "'{}' facet",
+            registry, "en", r"\[TimeSeries:FACET:(.*)\]", (1), "'{}' facet values",
+        )
+
+
+class EnglishTimeSeriesNoFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "en", r"\[TimeSeries:NO_FACET\]", (), "data",
         )
