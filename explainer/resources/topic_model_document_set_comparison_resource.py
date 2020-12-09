@@ -11,7 +11,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: A topic model {parameters} was used to compare corpora.
-| name = TopicModelDocumentLinking
+| name = TopicModelDocsetComparison
 """
 
 
