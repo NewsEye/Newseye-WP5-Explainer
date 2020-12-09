@@ -33,6 +33,7 @@ from explainer.resources.query_topic_model_resource import QueryTopicModelResour
 from explainer.resources.split_by_facet_resource import SplitByFacetResource
 from explainer.resources.summarization_resource import SummarizationResource
 from explainer.resources.topic_model_document_linking_resource import TopicModelDocumentLinkingResource
+from explainer.resources.topic_model_document_set_comparison_resource import TopicModelDocumentSetComparisonResource
 from explainer.resources.unknown_reason_resource import UnknownReasonResource
 from explainer.resources.unknown_task_resource import UnknownTaskResource
 
@@ -71,6 +72,7 @@ class ExplainerNlgService(object):
             GenerateTimeSeriesResource(),
             QueryTopicModelResource(),
             TopicModelDocumentLinkingResource(),
+            TopicModelDocumentSetComparisonResource(),
             SplitByFacetResource(),
             SummarizationResource(),
         ]
