@@ -43,5 +43,5 @@ class ExtractNamesResource(TaskResource):
 class EnglishExtractNamesParameterRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"\[ExtractNames:salience:([^\]]*)\]", [2, 1], "{} most salient",
+            registry, "en", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} most salient",
         )
