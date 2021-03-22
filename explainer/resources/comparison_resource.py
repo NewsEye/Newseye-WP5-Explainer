@@ -41,5 +41,5 @@ class ComparisonResource(TaskResource):
 class ComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "ALL", r"\[Comparison:Task:([^\]]+)\]", [], "{}",
+            registry, "ANY", r"\[Comparison:Task:([^\]]+)\]", [1], "the facet '{}'",
         )
