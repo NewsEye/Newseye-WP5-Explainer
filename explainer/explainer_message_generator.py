@@ -32,7 +32,7 @@ class Reason:
 
 
 class Event:
-    def __init__(self, task: Task, reason: Reason, id: str) -> None:
+    def __init__(self, task: Task, reason: Reason, id: int) -> None:
         self.task = task
         self.reason = reason
         self.id = id
@@ -41,7 +41,7 @@ class Event:
     def from_dict(dict: Dict[str, Any]) -> "Event":
         task = Task.from_dict(dict["task"]) if "task" in dict else None
         reason = Reason.from_dict(dict["reason"]) if "reason" in dict else None
-        return Event(task, reason, dict.get("id"))
+        return Event(task, reason, int(dict.get("id")))
 
 
 class ExplainerMessageGenerator(NLGPipelineComponent):
@@ -58,6 +58,7 @@ class ExplainerMessageGenerator(NLGPipelineComponent):
         task_parsers: List[Callable[[Event], List[Message]]] = registry.get("task-parsers")
         reason_parsers: List[Callable[[Event], List[Message]]] = registry.get("reason-parsers")
         events: List[Event] = [Event.from_dict(event) for event in json.loads(data)]
+        events.sort(key=lambda event: event.id)  # Smaller ID indicates earlier event
 
         messages: List[Message] = []
 
