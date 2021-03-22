@@ -9,32 +9,37 @@ from explainer.resources.processor_resource import TaskResource
 log = logging.getLogger("root")
 
 TEMPLATE = """
-en: The dataset was split by different values of the {parameters} facets.
-| name = SplitByFacet
+en: Two corpora were compared based on {parameters}
+| name = Comparison
 """
 
 
-class SplitByFacetResource(TaskResource):
+class ComparisonResource(TaskResource):
     def templates_string(self) -> str:
         return TEMPLATE
 
     def parse_task(self, event: Event) -> List[Message]:
         task = event.task
-        if not task or task.name != "SplitByFacet":
+        if not task or task.name != "ExtractBigrams":
             return []
 
         return [
             Message(
-                Fact("task", "SplitByFacet", "[SplitByFacet:FACET:{}]".format(task.parameters.get("facet")), event.id)
+                Fact(
+                    "task",
+                    "Comparison",
+                    "[Comparison:Task:{}]".format(task.parameters.get("facet", "unknown")),
+                    event.id,
+                )
             )
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishSplitByFacetFacetRealizer]
+        return [ComparisonFacetRealizer]
 
 
-class EnglishSplitByFacetFacetRealizer(RegexRealizer):
+class ComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"\[SplitByFacet:FACET:(.*)\]", (1), "'{}'",
+            registry, "ALL", r"\[Comparison:Task:([^\]]+)\]", [], "{}",
         )

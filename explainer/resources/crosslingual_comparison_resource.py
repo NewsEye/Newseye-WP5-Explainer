@@ -6,21 +6,21 @@ from explainer.explainer_message_generator import Event
 from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
-en: This was done as part of initializing a new experiment.
-| name = initialization
-"""
+en: This step was taken to compare datasets that are of different languages, thus limiting the available options.
+| name = crosslingual_comparison
+"""  # noqa: E501
 
 
-class InitializationResource(ReasonResource):
+class CrosslingualcomparisonResource(ReasonResource):
     def templates_string(self) -> str:
         return TEMPLATE
 
     def parse_reason(self, event: Event) -> List[Message]:
         task = event.reason
-        if not task or task.name != "initialization":
+        if not task or task.name != "crosslingual comparison":
             return []
 
-        return [Message(Fact("reason", "initialization", None, event.id))]
+        return [Message(Fact("reason", "crosslingual_comparison", None, event.id))]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
         return []

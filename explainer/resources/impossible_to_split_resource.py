@@ -6,21 +6,21 @@ from explainer.explainer_message_generator import Event
 from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
-en: This was done as part of initializing a new experiment.
-| name = initialization
-"""
+en: The investigator tried to split data in meaningful way, but failed.
+| name = impossible_to_split
+"""  # noqa: E501
 
 
-class InitializationResource(ReasonResource):
+class ImpossibleToSplitResource(ReasonResource):
     def templates_string(self) -> str:
         return TEMPLATE
 
     def parse_reason(self, event: Event) -> List[Message]:
         task = event.reason
-        if not task or task.name != "initialization":
+        if not task or task.name != "impossible to split":
             return []
 
-        return [Message(Fact("reason", "initialization", None, event.id))]
+        return [Message(Fact("reason", "impossible_to_split", None, event.id))]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
         return []

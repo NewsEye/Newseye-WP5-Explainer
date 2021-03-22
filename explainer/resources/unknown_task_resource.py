@@ -6,7 +6,7 @@ from explainer.explainer_message_generator import Event
 from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
-en: A task called {name} was completed with the paramaters {parameters}. This task is not familiar to the Explainer and should be reporter.
+en: A task called {name} was completed with the paramaters {parameters}. Please report how, where, and when you encountered this message by email to leo.leppanen@helsinki.fi.
 | name = UNKNOWN_TASK:.*
 """  # noqa: E501
 

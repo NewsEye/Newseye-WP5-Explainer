@@ -22,18 +22,36 @@ from explainer.explainer_document_planner import ExplainerDocumentPlanner
 from explainer.explainer_message_generator import ExplainerMessageGenerator, NoMessagesForSelectionException
 from explainer.explainer_named_entity_resolver import ExplainerEntityNameResolver
 from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
+from explainer.resources.big_collection_resource import BigCollectionResource
 from explainer.resources.brute_force_resource import BruteForceResource
+from explainer.resources.comparison_resource import ComparisonResource
+from explainer.resources.crosslingual_comparison_resource import CrosslingualcomparisonResource
+from explainer.resources.expand_query_resource import ExpandQueryResource
 from explainer.resources.extract_bigrams_resource import ExtractBigramsResource
 from explainer.resources.extract_facets_resource import ExtractFacetsResource
+from explainer.resources.extract_names_resource import ExtractNamesResource
 from explainer.resources.extract_words_resource import ExtractWordsResource
+from explainer.resources.find_best_split_from_timeseries_resource import FindBestSplitFromTimeseriesResource
 from explainer.resources.generate_time_series_resource import GenerateTimeSeriesResource
+from explainer.resources.global_strategy_resource import GlobalStrategyResource
+from explainer.resources.impossible_to_split_resource import ImpossibleToSplitResource
 from explainer.resources.initialization_resource import InitializationResource
+from explainer.resources.interesting_results_resource import InterestingResultsResource
+from explainer.resources.language_resource import LanguageResource
+from explainer.resources.new_collection_resource import NewCollectionResource
+from explainer.resources.not_enough_data_resource import NotEnoughDataResource
+from explainer.resources.nothing_to_compare_resource import NothingToCompareResource
+from explainer.resources.path_stop_resource import PathStopResource
 from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
 from explainer.resources.query_topic_model_resource import QueryTopicModelResource
+from explainer.resources.same_language_collections_resource import SameLanguageCollectionsResource
+from explainer.resources.small_collection_resource import SmallCollectionResource
 from explainer.resources.split_by_facet_resource import SplitByFacetResource
 from explainer.resources.summarization_resource import SummarizationResource
+from explainer.resources.too_big_collection_resource import TooBigCollectionResource
 from explainer.resources.topic_model_document_linking_resource import TopicModelDocumentLinkingResource
 from explainer.resources.topic_model_document_set_comparison_resource import TopicModelDocumentSetComparisonResource
+from explainer.resources.track_name_sentiment_resource import TrackNameSentimentResource
 from explainer.resources.unknown_reason_resource import UnknownReasonResource
 from explainer.resources.unknown_task_resource import UnknownTaskResource
 
@@ -62,19 +80,37 @@ class ExplainerNlgService(object):
             UnknownReasonResource(),
             #
             # Reasons
+            BigCollectionResource(),
             BruteForceResource(),
+            CrosslingualcomparisonResource(),
+            GlobalStrategyResource(),
             InitializationResource(),
+            ImpossibleToSplitResource(),
+            InterestingResultsResource(),
+            LanguageResource(),
+            NewCollectionResource(),
+            NotEnoughDataResource(),
+            NothingToCompareResource(),
+            PathStopResource(),
+            SameLanguageCollectionsResource(),
+            SmallCollectionResource(),
+            TooBigCollectionResource(),
             #
             # Tasks
-            ExtractWordsResource(),
+            ComparisonResource(),
+            ExpandQueryResource(),
             ExtractBigramsResource(),
             ExtractFacetsResource(),
+            ExtractNamesResource(),
+            ExtractWordsResource(),
+            FindBestSplitFromTimeseriesResource(),
             GenerateTimeSeriesResource(),
             QueryTopicModelResource(),
-            TopicModelDocumentLinkingResource(),
-            TopicModelDocumentSetComparisonResource(),
             SplitByFacetResource(),
             SummarizationResource(),
+            TopicModelDocumentLinkingResource(),
+            TopicModelDocumentSetComparisonResource(),
+            TrackNameSentimentResource(),
         ]
 
         # Templates
