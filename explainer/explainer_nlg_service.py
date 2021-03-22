@@ -14,13 +14,16 @@ from explainer.core.morphological_realizer import MorphologicalRealizer
 from explainer.core.pipeline import NLGPipeline, NLGPipelineComponent
 from explainer.core.realize_slots import SlotRealizer
 from explainer.core.registry import Registry
-from explainer.core.surface_realizer import BodyHTMLListSurfaceRealizer, BodyHTMLOrderedListSurfaceRealizer
 from explainer.core.template_reader import read_templates
 from explainer.core.template_selector import TemplateSelector
 from explainer.english_uralicNLP_morphological_realizer import EnglishUralicNLPMorphologicalRealizer
 from explainer.explainer_document_planner import ExplainerDocumentPlanner
 from explainer.explainer_message_generator import ExplainerMessageGenerator, NoMessagesForSelectionException
 from explainer.explainer_named_entity_resolver import ExplainerEntityNameResolver
+from explainer.explainer_surface_realizer import (
+    ExplainerBodySurfaceOrderedRealizer,
+    ExplainerBodySurfaceUnorderedRealizer,
+)
 from explainer.finnish_uralicNLP_morphological_realizer import FinnishUralicNLPMorphologicalRealizer
 from explainer.resources.big_collection_resource import BigCollectionResource
 from explainer.resources.brute_force_resource import BruteForceResource
@@ -184,9 +187,9 @@ class ExplainerNlgService(object):
         )
 
         if realizer == "ol":
-            yield BodyHTMLOrderedListSurfaceRealizer()
+            yield ExplainerBodySurfaceOrderedRealizer()
         else:
-            yield BodyHTMLListSurfaceRealizer()
+            yield ExplainerBodySurfaceUnorderedRealizer()
 
     def run_pipeline(self, language: str, output_format: str, data: str) -> Tuple[str, Optional[str]]:
         log.info("Starting generation")
