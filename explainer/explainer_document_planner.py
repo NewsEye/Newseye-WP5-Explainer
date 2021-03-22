@@ -1,7 +1,7 @@
 import logging
 from typing import List, Tuple
 
-from numpy.random.generator import Generator
+from numpy.random import Generator
 
 from explainer.core.document_planner import DocumentPlanner
 from explainer.core.models import DocumentPlanNode, Message, Relation
