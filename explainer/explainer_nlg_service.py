@@ -45,6 +45,7 @@ from explainer.resources.new_collection_resource import NewCollectionResource
 from explainer.resources.not_enough_data_resource import NotEnoughDataResource
 from explainer.resources.nothing_to_compare_resource import NothingToCompareResource
 from explainer.resources.path_stop_resource import PathStopResource
+from explainer.resources.path_strategy_resource import PathStrategyResource
 from explainer.resources.processor_resource import ProcessorResource, ReasonResource, TaskResource
 from explainer.resources.query_topic_model_resource import QueryTopicModelResource
 from explainer.resources.same_language_collections_resource import SameLanguageCollectionsResource
@@ -95,6 +96,7 @@ class ExplainerNlgService(object):
             NotEnoughDataResource(),
             NothingToCompareResource(),
             PathStopResource(),
+            PathStrategyResource(),
             SameLanguageCollectionsResource(),
             SmallCollectionResource(),
             TooBigCollectionResource(),
