@@ -1,6 +1,6 @@
 import json
 import logging
-from typing import Any, Callable, Dict, List, Tuple
+from typing import Any, Callable, Dict, List, Tuple, Optional
 
 from numpy.random import Generator
 
@@ -22,13 +22,14 @@ class Task:
 
 
 class Reason:
-    def __init__(self, name: str, parameters: Dict[str, Any]) -> None:
+    def __init__(self, name: str, strategy: Optional[str], parameters: Dict[str, Any]) -> None:
         self.name = name
+        self.strategy = strategy
         self.parameters = parameters
 
     @staticmethod
     def from_dict(dict: Dict[str, Any]) -> "Reason":
-        return Reason(dict.get("name", "UNNAMED_REASON"), dict.get("parameters", {}))
+        return Reason(dict.get("name", "UNNAMED_REASON"), dict.get("strategy"), dict.get("parameters", {}))
 
 
 class Event:
