@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: A task called {name} was completed with the paramaters {parameters}. Please report how, where, and when you encountered this message by email to leo.leppanen@helsinki.fi.
+fi: Suoritettiin tuntematon analyysi nimeltä {name} (parametreina {parameters} ). Autat järjestelmän kehitystyötä jos kerrot milloin ja missä yhteydessä törmäsit tähän viestiin sähköpostitse osoitteeseen leo.leppanen@helsinki.fi.
 | name = UNKNOWN_TASK:.*
 """  # noqa: E501
 
@@ -25,5 +26,5 @@ class UnknownTaskResource(ReasonResource):
 class UnknownTaskNameRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"UNKNOWN_TASK:(.*)", (1), "'{}'",
+            registry, "ANY", r"UNKNOWN_TASK:(.*)", (1), "'{}'",
         )

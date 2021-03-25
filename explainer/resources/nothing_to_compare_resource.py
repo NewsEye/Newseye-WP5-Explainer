@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because the Investigator wanted to compare some previously obtained results but was unable to identify a method to do so.
+fi: Tämä tehtiin koska järjestelmä halusi vertailla aiemmin löydettyjä tuloksia, mutta ei löytänyt sopivaa vertailumetodia.
 | name = nothing_to_compare
 """  # noqa: E501
 

@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because the original collection was relatively large.
+fi: Tämä tehtiin alkuperäisen kokoelman suuren koon takia.
 | name = big_collection
 """  # noqa: E501
 

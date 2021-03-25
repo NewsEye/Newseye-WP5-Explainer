@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This was completed for a reason called {name} with the paramaters {parameters}. Please report how, where, and when you encountered this message by email to leo.leppanen@helsinki.fi.
+fi: Tämä tehtiin tuntemattomasta syystä nimeltä {name} (parametreina {parameters} ). Autat järjestelmän kehitystyötä jos kerrot milloin ja missä yhteydessä törmäsit tähän viestiin sähköpostitse osoitteeseen leo.leppanen@helsinki.fi.
 | name = UNKNOWN_REASON:.*
 """  # noqa: E501
 
@@ -25,5 +26,5 @@ class UnknownReasonResource(ReasonResource):
 class UnknownReasonNameRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"UNKNOWN_REASON:(.*)", (1), "'{}'",
+            registry, "ANY", r"UNKNOWN_REASON:(.*)", (1), "'{}'",
         )

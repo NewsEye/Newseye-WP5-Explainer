@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because the original collection was too large to analyze in meaningful time.
+fi: Tämä tehtiin koska alkuperäinen kokoelma oli liian suuri analysoitavaksi mielekkäässä ajassa.
 | name = too_big_collection
 """  # noqa: E501
 

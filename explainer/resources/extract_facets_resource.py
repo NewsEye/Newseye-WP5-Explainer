@@ -10,6 +10,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: The publication years, newspapers names and languages of the documents were extracted.
+fi: Aineistosta etsittiin siinä esiintyvät julkaisuvuodet, sanomalehtien nimet ja kielet.
 | name = ExtractFacets
 """
 

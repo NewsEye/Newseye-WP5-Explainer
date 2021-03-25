@@ -10,7 +10,8 @@ log = logging.getLogger("root")
 
 
 TEMPLATE = """
-en: A topic model {parameters} was queried for similar documents.
+en: A topic model was queried for similar documents.
+fi: Etsittiin samankaltaisia dokumenttejä aihemallin avulla.
 | name = TopicModelDocumentLinking
 """
 

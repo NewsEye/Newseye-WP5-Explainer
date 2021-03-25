@@ -9,7 +9,8 @@ from explainer.resources.processor_resource import TaskResource
 log = logging.getLogger("root")
 
 TEMPLATE = """
-en: Named {parameters} named entities were identified from the corpus.
+en: The {parameters} named entities were identified from the corpus.
+fi: Aineistosta tunnistettiin {parameters} siinä esiintyvää entiteettiä tunnistettiin.
 | name = ExtractNames
 """
 
@@ -37,11 +38,18 @@ class ExtractNamesResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishExtractNamesParameterRealizer]
+        return [EnglishExtractNamesParameterRealizer, FinnishExtractNamesParameterRealizer]
 
 
 class EnglishExtractNamesParameterRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "en", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} most salient",
+        )
+
+
+class FinnishExtractNamesParameterRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} tärkeintä",
         )

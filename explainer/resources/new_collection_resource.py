@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This step was taken because the Investigator had previously built a new collection of documents and wants to begin analyzing it.
+fi: Tämä tehtiin koska järjestelmä halusi tutkia tarkemmin aiemmin rakentamaansa uutta kokoelmaa.
 | name = new_collection
 """  # noqa: E501
 

@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because the original collection was relatively small, limiting the available analyses that could provide meaningful results.
+fi: Tämä tehtiin koska alkuperäinen kokoelma oli suhteellisen pieni, mikä rajoittaa käytettävissä olevia analyysityökaluja.
 | name = small_collection
 """  # noqa: E501
 

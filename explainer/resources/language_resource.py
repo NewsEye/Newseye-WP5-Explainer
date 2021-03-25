@@ -6,7 +6,8 @@ from explainer.explainer_message_generator import Event
 from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
-en: Th collection is in specific language, which limits tool applicability (e.g. topic modeling might not be available for all languages).
+en: The collection is in specific language, which limits tool applicability (e.g. topic modeling might not be available for all languages).
+fi: Tämä tehtiin koska tutkittavan kokoelman kieli rajoittaa käytettävissä olevia työkaluja (esim. aihemallinnus ei ole käytettävissä kaikille kielille).
 | name = language
 """  # noqa: E501
 

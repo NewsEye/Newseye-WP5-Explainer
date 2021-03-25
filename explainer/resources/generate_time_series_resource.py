@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: A time series of the {parameters} was created.
+fi: Tehtiin aikasarja {parameters}.
 | name = GenerateTimeSeries
 """
 
@@ -32,7 +33,13 @@ class GenerateTimeSeriesResource(TaskResource):
         return [Message(Fact("task", "GenerateTimeSeries", split_by, event.id))]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishTimeSeriesFacetRealizer, EnglishTimeSeriesNoFacetRealizer]
+        return [
+            EnglishTimeSeriesFacetRealizer,
+            EnglishTimeSeriesNoFacetRealizer,
+            #
+            FinnishTimeSeriesFacetRealizer,
+            FinnishTimeSeriesNoFacetRealizer,
+        ]
 
 
 class EnglishTimeSeriesFacetRealizer(RegexRealizer):
@@ -46,4 +53,18 @@ class EnglishTimeSeriesNoFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "en", r"\[TimeSeries:NO_FACET\]", (), "data",
+        )
+
+
+class FinnishTimeSeriesFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[TimeSeries:FACET:(.*)\]", (1), "'{}' -piirteiden arvoista",
+        )
+
+
+class FinnishTimeSeriesNoFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[TimeSeries:NO_FACET\]", (), "datasta",
         )

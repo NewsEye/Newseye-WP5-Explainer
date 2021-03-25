@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because there were several datasets in the same language, so comparing them seemed relevant.
+fi: Tämä tehtiin koska tutkittavina oli useita saman kielisiä aineistoja, jolloin niiden vertailu vaikuttaa mielekkäänä.
 | name = same_language_collections
 """  # noqa: E501
 

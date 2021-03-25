@@ -7,6 +7,7 @@ from explainer.resources.processor_resource import ReasonResource
 
 TEMPLATE = """
 en: This action was taken because the Investigator couldn't identify any meaningful step that would continue a previous track of investigation.
+fi: Tämä tehtiin koska järjestelmä ei löytänyt mitään mielekästä tapaa jatkaa edellistä tutkimuslinjaa.
 | name = path_stop
 """  # noqa: E501
 

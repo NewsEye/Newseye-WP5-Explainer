@@ -10,6 +10,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: The most promising timespan was identified from a timeseries.
+fi: Aikasarjasta etsittiin lupaavin aikajänne.
 | name = FindBestSplitFromTimeseries
 """
 

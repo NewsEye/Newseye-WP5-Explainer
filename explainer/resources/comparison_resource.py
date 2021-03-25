@@ -9,7 +9,8 @@ from explainer.resources.processor_resource import TaskResource
 log = logging.getLogger("root")
 
 TEMPLATE = """
-en: Two corpora were compared based on {parameters}
+en: Two corpora were compared based on {parameters} .
+fi: Kahta kokoelmaa verrattiin {parameters} osalta.
 | name = Comparison
 """
 
@@ -23,23 +24,46 @@ class ComparisonResource(TaskResource):
         if not task or task.name != "ExtractBigrams":
             return []
 
-        return [
-            Message(
-                Fact(
-                    "task",
-                    "Comparison",
-                    "[Comparison:Task:{}]".format(task.parameters.get("facet", "unknown")),
-                    event.id,
-                )
-            )
-        ]
+        if task.parameters.get("facet"):
+            params = ("[Comparison:Task:Facet:{}]".format(task.parameters["facet"]),)
+        else:
+            params = ("[Comparison:Task:UNKNOWN",)
+
+        return [Message(Fact("task", "Comparison", params, event.id,))]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [ComparisonFacetRealizer]
+        return [
+            EnglishComparisonFacetRealizer,
+            EnglishComparisonUknownFacetRealizer,
+            #
+            FinnishComparisonFacetRealizer,
+            FinnishComparisonUknownFacetRealizer,
+        ]
 
 
-class ComparisonFacetRealizer(RegexRealizer):
+class EnglishComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "ANY", r"\[Comparison:Task:([^\]]+)\]", [1], "the facet '{}'",
+            registry, "en", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "the facet '{}'",
+        )
+
+
+class EnglishComparisonUknownFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "en", r"\[Comparison:Task:Unknown]", [], "a facet unfamiliar to the Explainer",
+        )
+
+
+class FinnishComparisonFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "'{}' arvon",
+        )
+
+
+class FinnishComparisonUknownFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[Comparison:Task:Unknown]", [], "jonkin tuntemattoman arvon",
         )

@@ -10,6 +10,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: All {parameters} were extracted and counted.
+fi: Aineistossa esiintyvät {parameters} laskettiin.
 | name = ExtractWords
 """
 
@@ -35,7 +36,13 @@ class ExtractWordsResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishExtractWordStemsRealizer, EnglishExtractWordTokenRealizer]
+        return [
+            EnglishExtractWordStemsRealizer,
+            EnglishExtractWordTokenRealizer,
+            #
+            FinnishExtractWordStemsRealizer,
+            FinnishExtractWordTokenRealizer,
+        ]
 
 
 class EnglishExtractWordStemsRealizer(RegexRealizer):
@@ -48,3 +55,15 @@ class EnglishExtractWordStemsRealizer(RegexRealizer):
 class EnglishExtractWordTokenRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(registry, "en", r"\[ExtractWords:UNIT:tokens\]", [], "tokens")
+
+
+class FinnishExtractWordStemsRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fi", r"\[ExtractWords:UNIT:stems\]", [], "tyvet",
+        )
+
+
+class FinnishExtractWordTokenRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(registry, "fi", r"\[ExtractWords:UNIT:tokens\]", [], "saneet")

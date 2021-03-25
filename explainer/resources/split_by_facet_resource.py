@@ -10,6 +10,7 @@ log = logging.getLogger("root")
 
 TEMPLATE = """
 en: The dataset was split by different values of the {parameters} facets.
+fi: Kokoelma jaettiin osiin {parameters} arvojen pohjalta.
 | name = SplitByFacet
 """
 
@@ -30,11 +31,11 @@ class SplitByFacetResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishSplitByFacetFacetRealizer]
+        return [SplitByFacetFacetRealizer]
 
 
-class EnglishSplitByFacetFacetRealizer(RegexRealizer):
+class SplitByFacetFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"\[SplitByFacet:FACET:(.*)\]", (1), "'{}'",
+            registry, "ANY", r"\[SplitByFacet:FACET:(.*)\]", (1), "'{}'",
         )

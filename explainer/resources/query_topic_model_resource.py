@@ -10,7 +10,8 @@ log = logging.getLogger("root")
 
 
 TEMPLATE = """
-en: A topic model {parameters} was queried for the distribution of topics in the corpus.
+en: A topic model was queried for the distribution of topics in the corpus.
+fi: Aihemallista haettiin kokoelman aihejakauma.
 | name = QueryTopicModel
 """
 
