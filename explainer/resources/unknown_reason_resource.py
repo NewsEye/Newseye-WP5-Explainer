@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This was completed for a reason called {name} with the paramaters {parameters}. Please report how, where, and when you encountered this message by email to leo.leppanen@helsinki.fi.
 fi: Tämä tehtiin tuntemattomasta syystä nimeltä {name} (parametreina {parameters} ). Autat järjestelmän kehitystyötä jos kerrot milloin ja missä yhteydessä törmäsit tähän viestiin sähköpostitse osoitteeseen leo.leppanen@helsinki.fi.
+de: Dies wurde ausgeführt aus dem Grunde {name} mit den Paramatern {parameters}. Bitte berichten Sie per E-Mail an leo.leppanen@helsinki.fi, wie, wo und wann Sie diese Meldung erhalten haben.
 | name = UNKNOWN_REASON:.*
 """  # noqa: E501
 

@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: The {parameters} named entities were identified from the corpus.
 fi: Aineistosta tunnistettiin {parameters} siinä esiintyvää entiteettiä tunnistettiin.
+de: Die {parameters} Entitäten des Korpus wurden identifiziert.
 | name = ExtractNames
 """
 
@@ -38,7 +39,13 @@ class ExtractNamesResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishExtractNamesParameterRealizer, FinnishExtractNamesParameterRealizer]
+        return [
+            EnglishExtractNamesParameterRealizer,
+            #
+            FinnishExtractNamesParameterRealizer,
+            #
+            GermanExtractNamesParameterRealizer,
+        ]
 
 
 class EnglishExtractNamesParameterRealizer(RegexRealizer):
@@ -52,4 +59,11 @@ class FinnishExtractNamesParameterRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "fi", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} tärkeintä",
+        )
+
+
+class GermanExtractNamesParameterRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} auffälligsten benannten",
         )

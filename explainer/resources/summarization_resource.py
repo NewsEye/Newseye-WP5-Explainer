@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: A short summary of the documents was created.
 fi: Dokumenteistä tehtiin lyhyt tiivistelmä.
+de: Eine kurze Zusammenfassung der Dokumente wurde erzeugt.
 | name = Summarization
 """
 

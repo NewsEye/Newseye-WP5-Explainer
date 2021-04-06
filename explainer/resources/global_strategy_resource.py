@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This was done because it's an integral part of the global strategy selected at the start of the experiment.
 fi: Tämä tehtiin koska se on oleellinen osa koeasetelman alussa määriteltyä globaalia strategiaa.
+de: Dies wurde gemacht, weil es ein integraler Bestandteil der globalen Strategie ist, die am Beginn des Experiments ausgewählt wurde.
 | name = global_strategy
 """  # noqa: E501
 

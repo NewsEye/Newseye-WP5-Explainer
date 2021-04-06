@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: All pairs of subsequent {parameters} were extracted and counted.
 fi: Kaikki {parameters} noudettin ja laskettiin.
+de: Alle Paare von der anschließenden {parameters} wurden extrahiert und gezählt.
 | name = ExtractBigrams
 """
 
@@ -42,6 +43,9 @@ class ExtractBigramsResource(TaskResource):
             #
             FinnishExtractBigramStemsRealizer,
             FinnishExtractBigramsTokenRealizer,
+            #
+            GermanExtractBigramStemsRealizer,
+            GermanExtractBigramsTokenRealizer,
         ]
 
 
@@ -70,4 +74,18 @@ class FinnishExtractBigramsTokenRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "fi", r"\[ExtractBigrams:UNIT:tokens\]", [], "saneparit",
+        )
+
+
+class GermanExtractBigramStemsRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[ExtractBigrams:UNIT:stems\]", [], "Stämme",
+        )
+
+
+class GermanExtractBigramsTokenRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[ExtractBigrams:UNIT:tokens\]", [], "Token",
         )

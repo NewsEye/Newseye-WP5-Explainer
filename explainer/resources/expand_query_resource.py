@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: The query was expanded.
 fi: Hakua laajennettiin.
+de: Die Abfrage wurde erweitert.
 | name = ExpandQuery
 """
 

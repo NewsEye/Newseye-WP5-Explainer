@@ -12,6 +12,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: A topic model was queried for similar documents.
 fi: Etsittiin samankaltaisia dokumenttejä aihemallin avulla.
+de: Ein LDA-Topic-Modell wurde für ähnliche Dokumente angefragt.
 | name = TopicModelDocumentLinking
 """
 
@@ -39,7 +40,7 @@ class TopicModelDocumentLinkingResource(TaskResource):
         ]
 
     def slot_realizer_components(self) -> List[Type[SlotRealizerComponent]]:
-        return [EnglishTopicModelTypeRealizer, EnglishTopicModelNameRealizer]
+        return []
 
 
 class EnglishTopicModelTypeRealizer(RegexRealizer):

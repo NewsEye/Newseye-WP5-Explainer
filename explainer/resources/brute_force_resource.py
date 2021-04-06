@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This is one of the steps taken always as part of a brute force search.
 fi: Tämä vaihe suoritetaan aina osana raakaan voimaan perustuvaa hakua.
+de: Dies ist einer der Schritte, die als Teil einer Brute-Force-Suche immer ausgeführt werden.
 | name = BruteForce
 """
 

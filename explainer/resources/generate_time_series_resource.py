@@ -12,6 +12,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: A time series of the {parameters} was created.
 fi: Tehtiin aikasarja {parameters}.
+de: Eine Zeitreihe {parameters} wurde erzeugt.
 | name = GenerateTimeSeries
 """
 
@@ -39,6 +40,9 @@ class GenerateTimeSeriesResource(TaskResource):
             #
             FinnishTimeSeriesFacetRealizer,
             FinnishTimeSeriesNoFacetRealizer,
+            #
+            GermanTimeSeriesFacetRealizer,
+            GermanTimeSeriesNoFacetRealizer,
         ]
 
 
@@ -67,4 +71,18 @@ class FinnishTimeSeriesNoFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "fi", r"\[TimeSeries:NO_FACET\]", (), "datasta",
+        )
+
+
+class GermanTimeSeriesFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[TimeSeries:FACET:(.*)\]", (1), "aus der Facette '{}'",
+        )
+
+
+class GermanTimeSeriesNoFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[TimeSeries:NO_FACET\]", (), "der Daten",
         )

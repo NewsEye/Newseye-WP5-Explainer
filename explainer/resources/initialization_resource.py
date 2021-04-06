@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This was done as part of initializing a new experiment.
 fi: Tämä tehtiin osana uuden koeasetelman alustusta.
+de: Dies wurde als Teil der Initialisierung eines neuen Experiments gemacht.
 | name = initialization
 """
 

@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This step was taken to compare datasets that are of different languages, thus limiting the available options.
 fi: Tämä tehtiin koska haluttiin verrata kahta eri kielistä aineistoa, mikä rajoittaa käytettävissä olevia analyysityökaluja.
+de: Dieser Schritt wurde unternommen zum Vergleich von Datensätzen, die in verschiedenen Sprachen vorliegen, was die verfügbaren Optionen eingrenzt.
 | name = crosslingual_comparison
 """  # noqa: E501
 

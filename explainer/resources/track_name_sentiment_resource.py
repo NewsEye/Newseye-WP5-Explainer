@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: The change of sentiment towards identified entities over time was identified.
 fi: Tarkasteltiin kuinka aineiston suuntautuminen eri entiteetteihin vaihtelee eri ajanjaksoina.
+de: Die zeitliche Veränderung der Bewertung hinsichtlich erkannter Entitäten wurde identifiziert.
 | name = TrackNameSentiment
 """
 

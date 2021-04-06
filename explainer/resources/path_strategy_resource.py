@@ -8,10 +8,12 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This was done because the Investigator is attempting to expand on an intermediate result.
 fi: Tämä tehtiin koska järjestelmä pyrkii käsittelemään jotain aiempaa tulosta laajemmin.
+de: Dies wurde getan, weil Investigator zu erweitern auf ein Zwischenergebnis versucht.
 | name = path_strategy_expansion
 
 en: This was done because the Investigator is attempting to elaborate on an intermediate result.
 fi: Tämä tehtiin koska järjestelmä pyrkii käsittelemään jotain aiempaa tulosta syvällisemmin.
+de: Dies wurde getan, weil Investigator versucht, ein Zwischenergebnis zu erarbeiten auf.
 | name = path_strategy_elaboration
 """  # noqa: E501
 

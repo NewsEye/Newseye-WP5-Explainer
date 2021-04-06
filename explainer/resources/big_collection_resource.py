@@ -8,6 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This action was taken because the original collection was relatively large.
 fi: Tämä tehtiin alkuperäisen kokoelman suuren koon takia.
+de: Diese Aktion wurde ausgeführt, weil die originale Kollektion relativ groß war.
 | name = big_collection
 """  # noqa: E501
 

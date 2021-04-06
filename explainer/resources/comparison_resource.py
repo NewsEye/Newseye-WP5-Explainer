@@ -11,6 +11,7 @@ log = logging.getLogger("root")
 TEMPLATE = """
 en: Two corpora were compared based on {parameters} .
 fi: Kahta kokoelmaa verrattiin {parameters} osalta.
+de: Zwei Korpora wurden basierend auf {parameters} verglichen.
 | name = Comparison
 """
 
@@ -38,6 +39,9 @@ class ComparisonResource(TaskResource):
             #
             FinnishComparisonFacetRealizer,
             FinnishComparisonUknownFacetRealizer,
+            #
+            GermanComparisonFacetRealizer,
+            GermanComparisonUknownFacetRealizer,
         ]
 
 
@@ -66,4 +70,18 @@ class FinnishComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "fi", r"\[Comparison:Task:Unknown]", [], "jonkin tuntemattoman arvon",
+        )
+
+
+class GermanComparisonFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "der Such-Facette '{}'",
+        )
+
+
+class GermanComparisonUknownFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "de", r"\[Comparison:Task:Unknown]", [], "einer unbekannten Such-Facette",
         )
