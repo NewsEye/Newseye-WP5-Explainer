@@ -8,7 +8,7 @@ from explainer.resources.processor_resource import ReasonResource
 TEMPLATE = """
 en: This action was taken because the Investigator wanted to compare some previously obtained results but was unable to identify a method to do so.
 fi: Tämä tehtiin koska järjestelmä halusi vertailla aiemmin löydettyjä tuloksia, mutta ei löytänyt sopivaa vertailumetodia.
-de: Diese Aktion wurde gemacht, weil der Investigator mit vorherigen Resultaten vergleichen wollte, aber dafür keine Methode identifizieren konnte
+de: Diese Aktion wurde gemacht, weil der Investigator mit vorherigen Resultaten vergleichen wollte, aber dafür keine Methode identifizieren konnte.
 fr: Cette mesure a été prise car l'enquêteur souhaitait comparer certains résultats obtenus antérieurement, mais il n'a pas été en mesure d'identifier une méthode pour le faire.
 | name = nothing_to_compare
 """  # noqa: E501
