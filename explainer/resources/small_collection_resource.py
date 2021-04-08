@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This action was taken because the original collection was relatively small, limiting the available analyses that could provide meaningful results.
 fi: Tämä tehtiin koska alkuperäinen kokoelma oli suhteellisen pieni, mikä rajoittaa käytettävissä olevia analyysityökaluja.
 de: Diese Aktion wurde gemacht, weil die originale Kollektion relativ klein war, was die verfügbaren Analysen einschränkt, die sinnvolle Resultate liefern könnten.
+fr: Cette mesure a été entreprise car la collection originale était relativement petite, limitant les analyses disponibles pouvant fournir des résultats significatifs.
 | name = small_collection
 """  # noqa: E501
 

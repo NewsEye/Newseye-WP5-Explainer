@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The publication years, newspapers names and languages of the documents were extracted.
 fi: Aineistosta etsittiin siinä esiintyvät julkaisuvuodet, sanomalehtien nimet ja kielet.
 de: Die Erscheinungsjahre, Zeitungsnamen und Sprachen der Dokumente wurden extrahiert.
+fr: Les années de publication, les titres des journaux et les langues des documents ont été extraits.
 | name = ExtractFacets
 """
 

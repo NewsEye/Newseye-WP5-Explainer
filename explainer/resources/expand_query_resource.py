@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The query was expanded.
 fi: Hakua laajennettiin.
 de: Die Abfrage wurde erweitert.
+fr: La requête a été étendue.
 | name = ExpandQuery
 """
 

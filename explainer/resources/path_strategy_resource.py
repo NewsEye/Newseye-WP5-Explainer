@@ -9,11 +9,13 @@ TEMPLATE = """
 en: This was done because the Investigator is attempting to expand on an intermediate result.
 fi: Tämä tehtiin koska järjestelmä pyrkii käsittelemään jotain aiempaa tulosta laajemmin.
 de: Dies wurde getan, weil Investigator zu erweitern auf ein Zwischenergebnis versucht.
+fr: Cela a été réalisé car l'investigateur tente d'élargir la recherche depuis un résultat intermédiaire.
 | name = path_strategy_expansion
 
 en: This was done because the Investigator is attempting to elaborate on an intermediate result.
 fi: Tämä tehtiin koska järjestelmä pyrkii käsittelemään jotain aiempaa tulosta syvällisemmin.
 de: Dies wurde getan, weil Investigator versucht, ein Zwischenergebnis zu erarbeiten auf.
+fr: Cela a été réalisé car l'investigateur tente d'élaborer la recherche depuis un résultat intermédiaire.
 | name = path_strategy_elaboration
 """  # noqa: E501
 

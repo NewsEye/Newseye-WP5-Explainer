@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The {parameters} named entities were identified from the corpus.
 fi: Aineistosta tunnistettiin {parameters} siinä esiintyvää entiteettiä tunnistettiin.
 de: Die {parameters} Entitäten des Korpus wurden identifiziert.
+fr: {parameters} ont été identifiées à partir du corpus.
 | name = ExtractNames
 """
 
@@ -45,6 +46,8 @@ class ExtractNamesResource(TaskResource):
             FinnishExtractNamesParameterRealizer,
             #
             GermanExtractNamesParameterRealizer,
+            #
+            FrenchExtractNamesParameterRealizer,
         ]
 
 
@@ -66,4 +69,11 @@ class GermanExtractNamesParameterRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "de", r"\[ExtractNames:salience:([^\]]*)\]", [1], "{} auffälligsten benannten",
+        )
+
+
+class FrenchExtractNamesParameterRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[ExtractNames:salience:([^\]]*)\]", [1], "Les {} entités nommées les plus saillantes",
         )

@@ -9,6 +9,7 @@ TEMPLATE = """
 en: A task called {name} was completed with the paramaters {parameters}. Please report how, where, and when you encountered this message by email to leo.leppanen@helsinki.fi.
 fi: Suoritettiin tuntematon analyysi nimeltä {name} (parametreina {parameters} ). Autat järjestelmän kehitystyötä jos kerrot milloin ja missä yhteydessä törmäsit tähän viestiin sähköpostitse osoitteeseen leo.leppanen@helsinki.fi.
 de: Der Schritt {name} wurde mit dem Paramater {parameters} ausgeführt. Bitte berichten Sie per E-Mail an leo.leppanen@helsinki.fi, wie, wo und wann Sie diese Meldung erhalten haben.
+fr: Une tâche appelée {name} a été effectuée avec les paramètres {parameters}. Veuillez écrire à leo.leppanen@helsinki.fi pour lui signifier comment, où et quand vous avez rencontré ce message.
 | name = UNKNOWN_TASK:.*
 """  # noqa: E501
 

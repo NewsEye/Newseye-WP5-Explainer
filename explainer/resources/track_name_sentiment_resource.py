@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The change of sentiment towards identified entities over time was identified.
 fi: Tarkasteltiin kuinka aineiston suuntautuminen eri entiteetteihin vaihtelee eri ajanjaksoina.
 de: Die zeitliche Veränderung der Bewertung hinsichtlich erkannter Entitäten wurde identifiziert.
+fr: Le changement de sentiment envers les entités identifiées au fil du temps a été identifié.
 | name = TrackNameSentiment
 """
 

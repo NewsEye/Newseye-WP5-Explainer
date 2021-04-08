@@ -13,6 +13,7 @@ TEMPLATE = """
 en: A topic model was queried for the distribution of topics in the corpus.
 fi: Aihemallista haettiin kokoelman aihejakauma.
 de: Ein LDA-Topic-Modell wurde für die Verteilung der Topics in dem Korpus angefragt.
+fr : Un modèle de sujet a été interrogé pour la distribution des sujets dans le corpus.
 | name = QueryTopicModel
 """
 

@@ -12,6 +12,7 @@ TEMPLATE = """
 en: Two corpora were compared based on {parameters} .
 fi: Kahta kokoelmaa verrattiin {parameters} osalta.
 de: Zwei Korpora wurden basierend auf {parameters} verglichen.
+fr: Deux corpus ont été comparés sur la base {parameters}.
 | name = Comparison
 """
 
@@ -42,6 +43,9 @@ class ComparisonResource(TaskResource):
             #
             GermanComparisonFacetRealizer,
             GermanComparisonUknownFacetRealizer,
+            #
+            FrenchComparisonFacetRealizer,
+            FrenchComparisonUknownFacetRealizer,
         ]
 
 
@@ -84,4 +88,18 @@ class GermanComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "de", r"\[Comparison:Task:Unknown]", [], "einer unbekannten Such-Facette",
+        )
+
+
+class FrenchComparisonFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "de la facette «{}»",
+        )
+
+
+class FrenchComparisonUknownFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[Comparison:Task:Unknown]", [], "d'une facette inconnue",
         )

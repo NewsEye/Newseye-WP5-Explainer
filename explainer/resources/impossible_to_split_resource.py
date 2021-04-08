@@ -9,6 +9,7 @@ TEMPLATE = """
 en: The investigator tried to split data in meaningful way, but failed.
 fi: Aineistoa yritettiin jakaa useaan alijoukkoon, mutta mielekästä jakoa ei löydetty.
 de: Der Investigator versuchte, die Daten auf sinnvolle Weise aufzuteilen, scheiterte aber.
+fr: L'enquêteur a tenté de diviser les données de manière significative, mais a échoué.
 | name = impossible_to_split
 """  # noqa: E501
 

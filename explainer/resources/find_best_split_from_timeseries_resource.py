@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The most promising timespan was identified from a timeseries.
 fi: Aikasarjasta etsittiin lupaavin aikajänne.
 de: Der vielversprechendste Zeitraum einer Zeitreihe wurde identifiziert.
+fr: La période la plus prometteuse a été identifiée à partir d&#39;une série chronologique.
 | name = FindBestSplitFromTimeseries
 """
 

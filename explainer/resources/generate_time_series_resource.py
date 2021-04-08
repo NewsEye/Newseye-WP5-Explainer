@@ -13,6 +13,7 @@ TEMPLATE = """
 en: A time series of the {parameters} was created.
 fi: Tehtiin aikasarja {parameters}.
 de: Eine Zeitreihe {parameters} wurde erzeugt.
+fr: Une série chronologique des {parameters} a été créée.
 | name = GenerateTimeSeries
 """
 
@@ -85,4 +86,18 @@ class GermanTimeSeriesNoFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "de", r"\[TimeSeries:NO_FACET\]", (), "der Daten",
+        )
+
+
+class FrenchTimeSeriesFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[TimeSeries:FACET:(.*)\]", (1), "valeurs de la facette «{}»",
+        )
+
+
+class FrenchTimeSeriesNoFacetRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[TimeSeries:NO_FACET\]", (), "données",
         )

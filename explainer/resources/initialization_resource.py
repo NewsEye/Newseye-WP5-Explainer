@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This was done as part of initializing a new experiment.
 fi: Tämä tehtiin osana uuden koeasetelman alustusta.
 de: Dies wurde als Teil der Initialisierung eines neuen Experiments gemacht.
+fr: Cela a été fait dans le cadre du lancement d’une nouvelle expérimentation.
 | name = initialization
 """
 

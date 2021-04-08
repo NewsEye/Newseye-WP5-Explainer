@@ -13,6 +13,7 @@ TEMPLATE = """
 en: A topic model was queried for similar documents.
 fi: Etsittiin samankaltaisia dokumenttejä aihemallin avulla.
 de: Ein LDA-Topic-Modell wurde für ähnliche Dokumente angefragt.
+fr: Un modèle de sujet a été interrogé pour des documents similaires.
 | name = TopicModelDocumentLinking
 """
 

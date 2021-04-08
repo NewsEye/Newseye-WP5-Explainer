@@ -12,6 +12,7 @@ TEMPLATE = """
 en: All {parameters} were extracted and counted.
 fi: Aineistossa esiintyvät {parameters} laskettiin.
 de: Alle {parameters} wurden extrahiert und gezählt.
+fr: Tous les {parameters} ont été extraits et comptabilisés.
 | name = ExtractWords
 """
 
@@ -46,6 +47,9 @@ class ExtractWordsResource(TaskResource):
             #
             GermanExtractWordStemsRealizer,
             GermanExtractWordTokenRealizer,
+            #
+            FrenchExtractWordStemsRealizer,
+            FrenchExtractWordTokenRealizer,
         ]
 
 
@@ -83,3 +87,15 @@ class GermanExtractWordStemsRealizer(RegexRealizer):
 class GermanExtractWordTokenRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(registry, "de", r"\[ExtractWords:UNIT:tokens\]", [], "Token")
+
+
+class FrenchExtractWordStemsRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[ExtractWords:UNIT:stems\]", [], "racines",
+        )
+
+
+class FrenchExtractWordTokenRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(registry, "fr", r"\[ExtractWords:UNIT:tokens\]", [], "termes recherchés")

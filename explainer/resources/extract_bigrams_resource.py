@@ -12,6 +12,7 @@ TEMPLATE = """
 en: All pairs of subsequent {parameters} were extracted and counted.
 fi: Kaikki {parameters} noudettin ja laskettiin.
 de: Alle Paare von der anschließenden {parameters} wurden extrahiert und gezählt.
+fr: Toutes les paires des {parameters} suivantes ont été extraites et comptabilisées.
 | name = ExtractBigrams
 """
 
@@ -46,6 +47,9 @@ class ExtractBigramsResource(TaskResource):
             #
             GermanExtractBigramStemsRealizer,
             GermanExtractBigramsTokenRealizer,
+            #
+            FrenchExtractBigramStemsRealizer,
+            FrenchExtractBigramsTokenRealizer,
         ]
 
 
@@ -88,4 +92,18 @@ class GermanExtractBigramsTokenRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
             registry, "de", r"\[ExtractBigrams:UNIT:tokens\]", [], "Token",
+        )
+
+
+class FrenchExtractBigramStemsRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[ExtractBigrams:UNIT:stems\]", [], "racines",
+        )
+
+
+class FrenchExtractBigramsTokenRealizer(RegexRealizer):
+    def __init__(self, registry):
+        super().__init__(
+            registry, "fr", r"\[ExtractBigrams:UNIT:tokens\]", [], "termes recherchés",
         )

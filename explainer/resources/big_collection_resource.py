@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This action was taken because the original collection was relatively large.
 fi: Tämä tehtiin alkuperäisen kokoelman suuren koon takia.
 de: Diese Aktion wurde ausgeführt, weil die originale Kollektion relativ groß war.
+fr: Cette action a été entreprise car la collection originale était relativement importante.
 | name = big_collection
 """  # noqa: E501
 

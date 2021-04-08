@@ -13,6 +13,7 @@ TEMPLATE = """
 en: A topic model was used to compare corpora.
 fi: Korpuksia vertailtiin aihemallin avulla.
 de: Ein Topic-Modell wurde verwendet, um die Korpora zu vergleichen.
+fr: Un modèle thématique a été utilisé pour comparer les corpus.
 | name = TopicModelDocsetComparison
 """
 

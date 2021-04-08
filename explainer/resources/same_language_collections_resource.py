@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This action was taken because there were several datasets in the same language, so comparing them seemed relevant.
 fi: Tämä tehtiin koska tutkittavina oli useita saman kielisiä aineistoja, jolloin niiden vertailu vaikuttaa mielekkäänä.
 de: Diese Aktion wurde gemacht, weil es verschiedene Datensätze in derselben Sprache gibt, so dass ein Vergleich relevant erschien.
+fr: Cette action a été entreprise car il y avait plusieurs jeux de données dans la même langue, leur comparaison semblait donc pertinente.
 | name = same_language_collections
 """  # noqa: E501
 

@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This step was taken to compare datasets that are of different languages, thus limiting the available options.
 fi: Tämä tehtiin koska haluttiin verrata kahta eri kielistä aineistoa, mikä rajoittaa käytettävissä olevia analyysityökaluja.
 de: Dieser Schritt wurde unternommen zum Vergleich von Datensätzen, die in verschiedenen Sprachen vorliegen, was die verfügbaren Optionen eingrenzt.
+fr: Cette étape a été entreprise pour comparer des ensembles de données de langues différentes, limitant ainsi les options disponibles.
 | name = crosslingual_comparison
 """  # noqa: E501
 

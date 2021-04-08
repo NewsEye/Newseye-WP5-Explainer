@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This action was taken because the original collection was too large to analyze in meaningful time.
 fi: Tämä tehtiin koska alkuperäinen kokoelma oli liian suuri analysoitavaksi mielekkäässä ajassa.
 de: Diese Aktion wurde gemacht, weil die originale Kollektion zu groß zum Analysieren in sinnvoller Zeit war.
+fr: Cette action a été entreprise car la collection d'origine était trop volumineuse pour être analysée dans un temps raisonnable.
 | name = too_big_collection
 """  # noqa: E501
 

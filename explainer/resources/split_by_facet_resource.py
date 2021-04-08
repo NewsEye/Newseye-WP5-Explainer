@@ -12,6 +12,7 @@ TEMPLATE = """
 en: The dataset was split by different values of the {parameters} facets.
 fi: Kokoelma jaettiin osiin {parameters} arvojen pohjalta.
 de: Der Datensatz wurde anhand verschiedener Werte der Facette {parameters} aufgeteilt.
+fr: Le jeu de données a été divisé par différentes valeurs des facettes {parameters}.
 | name = SplitByFacet
 """
 

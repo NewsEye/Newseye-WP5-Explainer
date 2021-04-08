@@ -9,6 +9,7 @@ TEMPLATE = """
 en: This action was taken because the original collection was too small for meaningful analysis.
 fi: Tämä tehtiin koska alkuperäinen kokoelma oli liian pieni mielekkään analyysin tekemiseen.
 de: Diese Aktion wurde gemacht, weil die originale Kollektion zu klein für eine sinnvolle Analyse wurde.
+fr: Cette mesure a été prise car la collection originale était trop petite pour une analyse significative.
 | name = not_enough_data
 """  # noqa: E501
 
