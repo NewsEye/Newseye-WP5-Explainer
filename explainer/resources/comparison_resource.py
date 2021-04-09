@@ -27,9 +27,9 @@ class ComparisonResource(TaskResource):
             return []
 
         if task.parameters.get("facet"):
-            params = ("[Comparison:Task:Facet:{}]".format(task.parameters["facet"]),)
+            params = "[Comparison:Task:Facet:{}]".format(task.parameters["facet"])
         else:
-            params = ("[Comparison:Task:Unknown",)
+            params = "[Comparison:Task:Unknown"
 
         return [Message(Fact("task", "Comparison", params, event.id,))]
 
