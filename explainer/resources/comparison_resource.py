@@ -9,10 +9,10 @@ from explainer.resources.processor_resource import TaskResource
 log = logging.getLogger("root")
 
 TEMPLATE = """
-en: Two corpora were compared based on {parameters} .
-fi: Kahta kokoelmaa verrattiin {parameters} osalta.
-de: Zwei Korpora wurden basierend auf {parameters} verglichen.
-fr: Deux corpus ont été comparés sur la base {parameters}.
+en: Two corpora were compared {parameters} .
+fi: Kahta kokoelmaa verrattiin {parameters} .
+de: Zwei Korpora wurden {parameters} verglichen.
+fr: Deux corpus ont été comparés {parameters}.
 | name = Comparison
 """
 
@@ -52,54 +52,54 @@ class ComparisonResource(TaskResource):
 class EnglishComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "the facet '{}'",
+            registry, "en", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "based on the facet '{}'",
         )
 
 
 class EnglishComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "en", r"\[Comparison:Task:Unknown]", [], "a facet unfamiliar to the Explainer",
+            registry, "en", r"\[Comparison:Task:Unknown]", [], "",
         )
 
 
 class FinnishComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "fi", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "'{}' arvon",
+            registry, "fi", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "'{}' arvojen osalta",
         )
 
 
 class FinnishComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "fi", r"\[Comparison:Task:Unknown]", [], "jonkin tuntemattoman arvon",
+            registry, "fi", r"\[Comparison:Task:Unknown]", [], "",
         )
 
 
 class GermanComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "de", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "der Such-Facette '{}'",
+            registry, "de", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "basierend auf der Such-Facette '{}'",
         )
 
 
 class GermanComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "de", r"\[Comparison:Task:Unknown]", [], "einer unbekannten Such-Facette",
+            registry, "de", r"\[Comparison:Task:Unknown]", [], "",
         )
 
 
 class FrenchComparisonFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "fr", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "de la facette «{}»",
+            registry, "fr", r"\[Comparison:Task:Facet:([^\]]+)\]", [0], "sur la base de la facette «{}»",
         )
 
 
 class FrenchComparisonUknownFacetRealizer(RegexRealizer):
     def __init__(self, registry):
         super().__init__(
-            registry, "fr", r"\[Comparison:Task:Unknown]", [], "d'une facette inconnue",
+            registry, "fr", r"\[Comparison:Task:Unknown]", [], "",
         )
