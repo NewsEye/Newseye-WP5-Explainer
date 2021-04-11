@@ -23,7 +23,7 @@ class ComparisonResource(TaskResource):
 
     def parse_task(self, event: Event) -> List[Message]:
         task = event.task
-        if not task or task.name != "ExtractBigrams":
+        if not task or task.name != "Comparison":
             return []
 
         if task.parameters.get("facet"):
